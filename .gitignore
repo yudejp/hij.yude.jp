@@ -30,9 +30,6 @@ gitea/data
 # h5ai
 h5ai/.github
 
-# Jellyfin
-jellyfin/config
-
 # markov-note
 markov-note/data
 markov-note/.env
@@ -56,8 +53,8 @@ musicbot/data
 # Nextcloud
 nextcloud/data
 
-# Owncast
-owncast/data
+# Portainer
+portainer/data
 
 # replyman
 replyman/.env
