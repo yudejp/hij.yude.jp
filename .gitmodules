@@ -1,0 +1,3 @@
+[submodule "minecraft"]
+	path = minecraft
+	url = git@github.com:yudejp/minecraft.git
