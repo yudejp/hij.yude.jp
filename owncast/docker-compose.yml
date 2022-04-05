@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  owncast:
+    image: gabekangas/owncast:latest
+    restart: always
+    volumes:
+      - ./data:/app/data
+    # command: /app/owncast
+    deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          capabilities: [compute, utility, video]
+    devices:
+        - '/dev/dri:/dev/dri'
+    ports:
+    - 7080:8080
+    - 1935:1935
+    

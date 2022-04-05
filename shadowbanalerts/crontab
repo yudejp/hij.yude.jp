@@ -1,0 +1,1 @@
+*/1 * * * * cd /app; python ShadowbanAlerts.py

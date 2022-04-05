@@ -1,0 +1,84 @@
+version: "3"
+
+services:
+  automuteus:
+    image: denverquane/amongusdiscord:${AUTOMUTEUS_TAG:?err}
+    restart: always
+    environment:
+      # These are required and will fail if not present
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN:?err}
+      - HOST=${GALACTUS_HOST:?err}
+      - POSTGRES_USER=${POSTGRES_USER:?err}
+      - POSTGRES_PASS=${POSTGRES_PASS:?err}
+
+      # These Variables are optional
+      - WORKER_BOT_TOKENS=${WORKER_BOT_TOKENS:-}
+      - EMOJI_GUILD_ID=${EMOJI_GUILD_ID:-}
+      - CAPTURE_TIMEOUT=${CAPTURE_TIMEOUT:-}
+      - AUTOMUTEUS_LISTENING=${AUTOMUTEUS_LISTENING:-}
+
+      # Do **NOT** change this
+      - REDIS_ADDR=${AUTOMUTEUS_REDIS_ADDR}
+      - GALACTUS_ADDR=${GALACTUS_ADDR}
+      - POSTGRES_ADDR=${POSTGRES_ADDR}
+    depends_on:
+      - redis
+      - galactus
+      - postgres
+    volumes:
+      - "logs:/app/logs"
+    networks:
+      - internal
+  
+  galactus:
+    image: automuteus/galactus:${GALACTUS_TAG:?err}
+    restart: always
+    environment:
+      # Do **NOT** change these
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN:?err}
+      - BROKER_PORT=${BROKER_PORT}
+      - REDIS_ADDR=${GALACTUS_REDIS_ADDR}
+      - GALACTUS_PORT=${GALACTUS_PORT}
+    depends_on:
+      - redis
+    networks:
+      - internal
+
+  redis:
+    image: redis:alpine
+    restart: always
+    volumes:
+      - "./redis:/data"
+
+  postgres:
+    image: postgres:12-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASS}
+    volumes:
+      - "./db:/var/lib/postgresql/data"
+    networks:
+      - internal
+  
+  cloudflared:
+    image: cloudflare/cloudflared:2022.3.4-amd64
+    user: root
+    command: tunnel
+    environment:
+        - TUNNEL_HOSTNAME=galactus.yude.jp
+        - TUNNEL_URL=http://galactus:4600
+        - TUNNEL_ORIGIN_CERT=/root/.cloudflared/cert.pem
+    volumes:
+        - '$HOME/.cloudflared:/root/.cloudflared'
+    restart: always
+    networks:
+    - internal
+
+networks:
+  internal:
+    external: false
+
+volumes:
+  logs:
+

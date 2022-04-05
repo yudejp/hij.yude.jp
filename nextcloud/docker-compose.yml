@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:13.5-alpine
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    env_file:
+      - db.env
+    networks:
+      - internal
+
+  redis:
+    image: redis:alpine
+    restart: always
+    networks:
+      - internal
+
+  app:
+    image: nextcloud
+    ports:
+      - 9000:80
+    restart: always
+    volumes:
+      - ./data/html:/var/www/html
+      - /mnt/data1:/storage/data1
+      - /mnt/data2:/storage/data2
+      - /mnt/data3:/storage/data3
+      - /mnt/data4:/storage/data4
+    environment:
+      - POSTGRES_HOST=db
+      - REDIS_HOST=redis
+    env_file:
+      - db.env
+    depends_on:
+      - db
+      - redis
+    networks:
+      - internal
+      - default
+
+  cloudflared:
+    image: cloudflare/cloudflared:2021.8.3
+    user: root
+    command: tunnel
+    environment:
+      - TUNNEL_HOSTNAME=nc.yude.jp
+      - TUNNEL_URL=http://app:80
+      - TUNNEL_ORIGIN_CERT=/root/.cloudflared/cert.pem
+    volumes:
+      - '$HOME/.cloudflared:/root/.cloudflared'
+    networks:
+      - internal
+    restart: always
+
+  cron:
+    image: nextcloud:apache
+    restart: always
+    volumes:
+      - ./data/html:/var/www/html
+    entrypoint: /cron.sh
+    depends_on:
+      - db
+      - redis
+    networks:
+      - internal
+
+networks:
+  internal:

@@ -1,0 +1,74 @@
+# AutoMuteUs
+automuteus/db
+automuteus/logs
+automuteus/redis
+automuteus/.env
+
+# dtv
+## EPGStation
+dtv/epgstation/data
+dtv/epgstation/logs
+dtv/epgstation/thumbnail
+## Mirakurun
+dtv/mirakurun/data
+## MySQL
+dtv/mysql
+
+# epgbird
+epgbird/.env
+
+# FreePBX
+freepbx/certs
+freepbx/data
+freepbx/db
+freepbx/dbbackup
+freepbx/logs
+
+# Gitea
+gitea/data
+
+# h5ai
+h5ai/.github
+
+# Jellyfin
+jellyfin/config
+
+# markov-note
+markov-note/data
+markov-note/.env
+
+# markov-toot
+markov-toot/data
+markov-toot/.env
+
+# markov-tweet
+markov-tweet/data
+markov-tweet/.env
+
+# Misskey
+misskey/db
+misskey/files
+misskey/redis
+
+# MusicBot
+musicbot/data
+
+# Nextcloud
+nextcloud/data
+
+# Owncast
+owncast/data
+
+# replyman
+replyman/.env
+
+# Roundcube
+roundcube/db
+
+# ShadowbanAlerts
+shadowbanalerts/.env
+shadowbanalerts/ShadowbanAlerts.json
+
+# yude-vs-robot
+yude-vs-robot/data
+yude-vs-robot/.env

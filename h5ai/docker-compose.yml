@@ -1,0 +1,29 @@
+services:
+  h5ai:
+    image: yude/h5ai
+    restart: always
+    container_name: h5ai
+    volumes:
+      - /mnt/data4/h5ai:/h5ai
+    networks:
+      - internal
+
+  cloudflared:
+      image: ghcr.io/milgradesec/cloudflared:latest
+      user: root
+      command: tunnel
+      environment:
+          - TUNNEL_HOSTNAME=files.yude.jp
+          - TUNNEL_URL=http://h5ai
+          - TUNNEL_ORIGIN_CERT=/root/.cloudflared/cert.pem
+      volumes:
+          - '$HOME/.cloudflared:/root/.cloudflared'
+      extra_hosts:
+          - "host.docker.internal:host-gateway"
+      restart: always
+      networks:
+      - internal
+
+networks:
+  internal:
+    external: false
