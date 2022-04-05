@@ -1,0 +1,32 @@
+name: Update submodules
+on:
+  schedule:
+    - cron:  '0 * * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  # This workflow contains a single job called "update"
+  update:
+    runs-on: ubuntu-latest
+    env:
+      TZ: "Asia/Tokyo"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Pull & update submodules recursively
+        run: |
+          git submodule update --init --recursive
+          git submodule update --recursive --remote
+      - name: Commit & push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "action@github.com"
+          git add -A
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "Update submodules @ $(date "+%Y/%m/%d %H:%M:%S")"
+            git push
+          fi
