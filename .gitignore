@@ -69,3 +69,6 @@ shadowbanalerts/ShadowbanAlerts.json
 # yude-vs-robot
 yude-vs-robot/data
 yude-vs-robot/.env
+
+# switchbot-discord
+switchbot-discord/.env
