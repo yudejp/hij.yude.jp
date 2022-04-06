@@ -44,14 +44,14 @@ encode:
       suffix: .mp4
       rate: 4.0
 
-reserveNewAddtionCommand: 'cd /app/EPGS-to-Discord-v2 && /bin/sh run.sh reserve'
-reserveUpdateCommand: 'cd /app/EPGS-to-Discord-v2 && /bin/sh run.sh update'
-reservedeletedCommand: 'cd /app/EPGS-to-Discord-v2 && /bin/sh run.sh delete'
-recordingPreStartCommand: 'cd /app/EPGS-to-Discord-v2 && /bin/sh run.sh prestart'
-recordingPrepRecFailedCommand: 'cd /app/EPGS-to-Discord-v2 && /bin/sh run.sh prepfailed'
-recordingStartCommand: 'cd /app/EPGS-to-Discord-v2 && /bin/sh run.sh start'
-recordingFinishCommand: 'cd /app/EPGS-to-Discord-v2 && /bin/sh run.sh end'
-recordingFailedCommand: 'cd /app/EPGS-to-Discord-v2 && /bin/sh run.sh recfailed'
+reserveNewAddtionCommand: '/bin/sh /app/EPGS-to-Discord-v2/run.sh reserve'
+reserveUpdateCommand: '/bin/sh /app/EPGS-to-Discord-v2/run.sh update'
+reservedeletedCommand: '/bin/sh /app/EPGS-to-Discord-v2/run.sh delete'
+recordingPreStartCommand: '/bin/sh /app/EPGS-to-Discord-v2/run.sh prestart'
+recordingPrepRecFailedCommand: '/bin/sh /app/EPGS-to-Discord-v2/run.sh prepfailed'
+recordingStartCommand: '/bin/sh /app/EPGS-to-Discord-v2/run.sh start'
+recordingFinishCommand: '/bin/sh /app/EPGS-to-Discord-v2/run.sh end'
+recordingFailedCommand: '/bin/sh /app/EPGS-to-Discord-v2/run.sh recfailed'
 
 urlscheme:
     m2ts:
