@@ -1,3 +1,6 @@
 [submodule "minecraft"]
 	path = minecraft
 	url = git@github.com:yudejp/minecraft.git
+[submodule "dtv/epgstation/EPGS-to-Discord-v2"]
+	path = dtv/epgstation/EPGS-to-Discord-v2
+	url = git@github.com:yude/EPGS-to-Discord-v2.git
