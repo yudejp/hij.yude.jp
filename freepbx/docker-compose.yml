@@ -48,6 +48,8 @@ services:
       - DB_NAME=asterisk
       - DB_USER=asterisk
       - DB_PASS=asteriskpass
+
+      - ENABLE_FAIL2BAN=FALSE
     
      ### If you are using TLS Support for Apache to listen on 443 in the container drop them in /certs and set these:
      #- TLS_CERT=cert.pem
@@ -56,8 +58,8 @@ services:
     restart: always
 
     ### These final lines are for Fail2ban. If you don't want, comment and also add ENABLE_FAIL2BAN=FALSE to your environment
-    cap_add:
-      - NET_ADMIN
+    #cap_add:
+    #  - NET_ADMIN
     privileged: true
 
   freepbx-db:
