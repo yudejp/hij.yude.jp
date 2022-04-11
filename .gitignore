@@ -72,3 +72,18 @@ yude-vs-robot/.env
 
 # switchbot-discord
 switchbot-discord/.env
+
+# GitLab
+gitlab/data/config/gitlab-secrets.json
+gitlab/data/config/initial_root_password
+gitlab/data/config/ssh_*
+gitlab/data/config/gitlab.rb
+
+# Misc
+*.log
+logs
+*.u
+*.crt
+*.key
+*.pub
+*.key-staging
