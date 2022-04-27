@@ -87,3 +87,6 @@ logs
 *.key
 *.pub
 *.key-staging
+
+# Jellyfin
+jellyfin/config
