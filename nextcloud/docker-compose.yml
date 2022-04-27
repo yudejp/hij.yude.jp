@@ -19,9 +19,9 @@ services:
 
   app:
     image: nextcloud
-    ports:
-      - 9000:80
     restart: always
+    ports:
+      - "9000:80"
     volumes:
       - ./data/html:/var/www/html
       - /mnt/data1:/storage/data1
