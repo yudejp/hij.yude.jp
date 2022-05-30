@@ -18,7 +18,7 @@ services:
       - internal
 
   app:
-    image: nextcloud
+    image: nextcloud:fpm
     restart: always
     ports:
       - "9000:80"
@@ -39,6 +39,27 @@ services:
     networks:
       - internal
       - default
+    command: bash -c "
+        apt update && apt upgrade &&
+        apt -y install libmagickcore-6.q16-6-extra
+        && php-fpm
+      "
+  
+  web:
+    image: nginx
+    restart: always
+    links:
+      - app
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/sites-enabled:/etc/nginx/sites-enabled:ro
+    volumes_from:
+      - app
+    depends_on:
+      - app
+    networks:
+      - internal
+      - default
 
   cloudflared:
     image: cloudflare/cloudflared:2021.8.3
@@ -46,7 +67,7 @@ services:
     command: tunnel
     environment:
       - TUNNEL_HOSTNAME=nc.yude.jp
-      - TUNNEL_URL=http://app:80
+      - TUNNEL_URL=http://web:80
       - TUNNEL_ORIGIN_CERT=/root/.cloudflared/cert.pem
     volumes:
       - '$HOME/.cloudflared:/root/.cloudflared'
