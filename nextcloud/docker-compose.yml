@@ -40,7 +40,7 @@ services:
       - internal
       - default
     command: bash -c "
-        apt update && apt upgrade &&
+        apt -y update && apt -y upgrade &&
         apt -y install libmagickcore-6.q16-6-extra
         && php-fpm
       "
