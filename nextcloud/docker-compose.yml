@@ -40,9 +40,12 @@ services:
       - internal
       - default
     command: bash -c "
-        apt -y update && apt -y upgrade &&
-        apt -y install libmagickcore-6.q16-6-extra
-        && php-fpm
+        apt -y update &&
+        apt -y upgrade &&
+        apt -y install libmagickcore-6.q16-6-extra cifs-utils libsmbclient-dev &&
+        pecl install smbclient &&
+        docker-php-ext-enable smbclient &&
+        php-fpm
       "
   
   web:
@@ -64,15 +67,12 @@ services:
   cloudflared:
     image: cloudflare/cloudflared:2021.8.3
     user: root
-    command: tunnel
-    environment:
-      - TUNNEL_HOSTNAME=nc.yude.jp
-      - TUNNEL_URL=http://web:80
-      - TUNNEL_ORIGIN_CERT=/root/.cloudflared/cert.pem
+    command: tunnel --hostname nc.yude.jp --url http://web:80 --loglevel info
     volumes:
       - '$HOME/.cloudflared:/root/.cloudflared'
     networks:
       - internal
+      - default
     restart: always
 
   cron:
