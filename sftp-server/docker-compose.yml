@@ -4,6 +4,7 @@ services:
   app:
     build: .
     restart: always
+    hostname: "sftp.yude.jp"
     volumes:
       - /mnt/data3/share:/root/share
 
