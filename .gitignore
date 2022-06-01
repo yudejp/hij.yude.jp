@@ -90,3 +90,6 @@ logs
 
 # Jellyfin
 jellyfin/config
+
+# sftp-server
+sftp-server/tailscale

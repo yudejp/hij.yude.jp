@@ -20,6 +20,16 @@ services:
     networks:
       - no-inet
       - inet
+  
+  tailscaled:
+    image: tailscale/tailscale
+    volumes:
+      - "./tailscale/tailscale_var_lib:/var/lib"
+      - "/dev/net/tun:/dev/net/tun"
+    cap_add:
+      - net_admin
+      - sys_module
+    command: tailscaled
 
 networks:
   no-inet:
