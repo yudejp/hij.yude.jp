@@ -74,10 +74,12 @@ services:
     restart: always
     networks:
     - internal
+    - ex
 
 networks:
   internal:
     external: false
+  ex:
 
 volumes:
   logs:
