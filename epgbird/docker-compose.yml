@@ -4,7 +4,7 @@ services:
   
   epgbird:
     container_name: epgbird
-    image: slashnephy/epgbird:latest
+    image: ghcr.io/slashnephy/epgbird:latest
     restart: always
     volumes:
       - /mnt:/mnt:ro
