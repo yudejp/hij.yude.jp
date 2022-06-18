@@ -39,14 +39,14 @@ services:
     networks:
       - internal
       - default
-    command: bash -c "
-        apt -y update &&
-        apt -y upgrade &&
-        apt -y install libmagickcore-6.q16-6-extra cifs-utils libsmbclient-dev &&
-        pecl install smbclient &&
-        docker-php-ext-enable smbclient &&
-        php-fpm
-      "
+#    command: bash -c "
+#        apt -y update &&
+#        apt -y upgrade &&
+#        apt -y install libmagickcore-6.q16-6-extra cifs-utils libsmbclient-dev &&
+#        pecl install smbclient &&
+#        docker-php-ext-enable smbclient &&
+#        php-fpm
+#      "
   
   web:
     image: nginx
