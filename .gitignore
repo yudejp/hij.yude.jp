@@ -93,3 +93,5 @@ jellyfin/config
 
 # sftp-server
 sftp-server/tailscale
+samba-hvcan/.env
+samba-hvcan/.env
