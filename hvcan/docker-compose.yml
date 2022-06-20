@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  se-client:
+    image: sammrai/softether-bridge:latest
+    restart: always
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    env_file:
+      - ./.env
+    networks:
+      - internal
+    ports:
+      # for SoftEther VPN Server Admin console
+      - 5555:5555
+  
+  samba:
+    image: vimagick/samba
+    volumes:
+      - ./smb.conf:/etc/samba/smb.conf
+      - /mnt/data3/share:/share
+    tty: yes
+    restart: always
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
+    internal: true
