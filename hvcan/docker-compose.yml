@@ -1,31 +1,44 @@
-version: '3.8'
+version: "3"
 
 services:
-  se-client:
-    image: sammrai/softether-bridge:latest
-    restart: always
+  vpnclient:
+    image: containinger/docker-softether-vpn-client:latest
+    container_name: hvcan-vpn
     privileged: true
     cap_add:
       - NET_ADMIN
     env_file:
       - ./.env
-    networks:
-      - internal
+    restart: always
+    # important: this container owns the network stack 
+    #            so expose guacamole ports here
     ports:
-      # for SoftEther VPN Server Admin console
-      - 5555:5555
-  
+      - "8080:8080"
+
   samba:
     image: vimagick/samba
     volumes:
-      - ./smb.conf:/etc/samba/smb.conf
+      - ./samba/smb.conf:/etc/samba/smb.conf
       - /mnt/data3/share:/share
     tty: yes
     restart: always
-    networks:
-      - internal
-
-networks:
-  internal:
-    driver: bridge
-    internal: true
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - vpnclient
+    # use network stack of vpnclient to gain access to
+    # the VPN network
+    network_mode: "service:vpnclient"
+  
+  nginx:
+    image: nginx
+    tty: yes
+    restart: always
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - vpnclient
+    network_mode: "service:vpnclient"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/sites-enabled:/etc/nginx/sites-enabled:ro
