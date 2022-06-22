@@ -93,3 +93,4 @@ jellyfin/config
 
 # HVCAN
 hvcan/.env
+hvcan/nginx/html
