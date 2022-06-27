@@ -6,9 +6,6 @@ services:
     hostname: yudesrv
     container_name: hvcan-vpn
     privileged: true
-    dns:
-      - 8.8.8.8
-      - 20.0.0.1
     cap_add:
       - NET_ADMIN
     env_file:
@@ -36,6 +33,7 @@ services:
   
   nginx:
     image: nginx
+    container_name: hvcan-nginx
     tty: yes
     restart: always
     cap_add:
