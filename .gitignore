@@ -94,3 +94,9 @@ jellyfin/config
 # HVCAN
 hvcan/.env
 hvcan/nginx/html
+
+# Mastodon
+mastodon/postgres
+mastodon/public
+mastodon/redis
+mastodon/.env.production
