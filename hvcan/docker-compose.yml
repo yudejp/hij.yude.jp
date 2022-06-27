@@ -11,10 +11,6 @@ services:
     env_file:
       - ./.env
     restart: always
-    # important: this container owns the network stack 
-    #            so expose guacamole ports here
-    ports:
-      - "5555:5555"
 
   samba:
     image: servercontainers/samba
@@ -27,8 +23,6 @@ services:
       - NET_ADMIN
     depends_on:
       - vpnclient
-    # use network stack of vpnclient to gain access to
-    # the VPN network
     env_file:
       - .env
     network_mode: "service:vpnclient"
@@ -47,3 +41,4 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/sites-enabled:/etc/nginx/sites-enabled:ro
       - ./nginx/html:/var/www/html
+  
