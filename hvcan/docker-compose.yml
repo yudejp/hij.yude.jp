@@ -17,10 +17,10 @@ services:
       - "5555:5555"
 
   samba:
-    image: vimagick/samba
+    image: servercontainers/samba
+    container_name: hvcan-samba
     volumes:
-      - ./samba/smb.conf:/etc/samba/smb.conf
-      - /mnt/data3/share:/share
+      - /mnt/data3/share:/shares/share
     tty: yes
     restart: always
     cap_add:
@@ -29,6 +29,8 @@ services:
       - vpnclient
     # use network stack of vpnclient to gain access to
     # the VPN network
+    env_file:
+      - .env
     network_mode: "service:vpnclient"
   
   nginx:
