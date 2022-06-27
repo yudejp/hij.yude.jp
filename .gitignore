@@ -94,6 +94,7 @@ jellyfin/config
 # HVCAN
 hvcan/.env
 hvcan/nginx/html
+hvcan/pleroma/volumes
 
 # Mastodon
 mastodon/postgres
