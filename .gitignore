@@ -102,3 +102,4 @@ mastodon/public
 mastodon/redis
 mastodon/.env.production
 KonomiTV
+addchan/.env
