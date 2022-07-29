@@ -4,12 +4,12 @@ services:
     restart: always
     container_name: h5ai
     volumes:
-      - /mnt/data4/h5ai:/h5ai
+      - /mnt/data3/h5ai:/h5ai
     networks:
       - internal
 
   cloudflared:
-      image: cloudflare/cloudflared:2022.3.4-amd64
+      image: cloudflare/cloudflared:2022.6.3-amd64
       user: root
       command: tunnel
       environment:

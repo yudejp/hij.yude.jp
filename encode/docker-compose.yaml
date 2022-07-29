@@ -1,0 +1,23 @@
+
+version: '3.8'
+services:
+  encode:
+      image: encode
+      container_name: encode
+      restart: always
+      command: /bin/sh -c "while :; do sleep 10; done"
+      volumes:
+        - /mnt/data3/recorded:/root/recorded
+        - ./encode:/usr/bin/encode
+      build:
+          context: .
+      deploy:
+          resources:
+              reservations:
+                  devices:
+                      - driver: nvidia
+                        capabilities: [compute, utility, video]
+#        environment:
+#            - NVIDIA_DISABLE_REQUIRE=1
+      devices:
+          - '/dev/dri:/dev/dri'

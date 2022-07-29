@@ -7,4 +7,4 @@ services:
       - type: bind
         source: ".env"
         target: "/app/.env"
-    restart: unless-stopped
+    restart: always

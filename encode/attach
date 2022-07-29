@@ -1,0 +1,3 @@
+#!/bin/sh
+CONTAINER_ID=$(docker-compose ps -q encode)
+docker attach $CONTAINER_ID
