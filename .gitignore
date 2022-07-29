@@ -101,3 +101,4 @@ mastodon/postgres
 mastodon/public
 mastodon/redis
 mastodon/.env.production
+KonomiTV
