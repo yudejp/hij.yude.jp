@@ -49,6 +49,8 @@ services:
     restart: always
     volumes:
       - "./redis:/data"
+    networks:
+      - internal  
 
   postgres:
     image: postgres:12-alpine
@@ -62,19 +64,15 @@ services:
       - internal
   
   cloudflared:
-    image: cloudflare/cloudflared:2022.3.4-amd64
+    image: cloudflare/cloudflared:latest
     user: root
-    command: tunnel
-    environment:
-        - TUNNEL_HOSTNAME=galactus.yude.jp
-        - TUNNEL_URL=http://galactus:4600
-        - TUNNEL_ORIGIN_CERT=/root/.cloudflared/cert.pem
+    command: tunnel --url http://galactus:5858 --no-chunked-encoding run galactus
     volumes:
         - '$HOME/.cloudflared:/root/.cloudflared'
     restart: always
     networks:
-    - internal
-    - ex
+      - internal
+      - ex
 
 networks:
   internal:
@@ -83,4 +81,3 @@ networks:
 
 volumes:
   logs:
-
