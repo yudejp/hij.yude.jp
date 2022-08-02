@@ -103,3 +103,9 @@ mastodon/redis
 mastodon/.env.production
 KonomiTV
 addchan/.env
+
+# Prometheus
+prometheus/data
+
+# Grafana
+grafana/data

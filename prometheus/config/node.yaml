@@ -1,0 +1,4 @@
+- labels:
+    env: development
+  targets:
+    - node-exporter:9100
