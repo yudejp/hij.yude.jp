@@ -13,7 +13,10 @@ services:
     networks:
       - grafana
     environment:
-      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+      GF_INSTALL_PLUGINS: grafana-clock-panel,grafana-simple-json-datasource,grafana-image-renderer
+      GF_RENDERING_SERVER_URL: http://renderer:8081/render
+      GF_RENDERING_CALLBACK_URL: https://grafana.yude.jp/
+      GF_LOG_FILTERS: rendering:debug
   
   cloudflared:
     image: cloudflare/cloudflared:latest
@@ -22,6 +25,11 @@ services:
     command: tunnel --url http://grafana:3000 --no-chunked-encoding run grafana
     volumes:
       - '$HOME/.cloudflared:/root/.cloudflared'
+    networks:
+      - grafana
+
+  renderer:
+    image: grafana/grafana-image-renderer:latest
     networks:
       - grafana
 
