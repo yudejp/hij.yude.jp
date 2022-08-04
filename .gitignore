@@ -109,3 +109,6 @@ prometheus/data
 
 # Grafana
 grafana/data
+
+# mirakc
+dtv/mirakc/epg
