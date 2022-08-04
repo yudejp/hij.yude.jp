@@ -1,5 +1,6 @@
 port: 8888
-mirakurunPath: http://mirakurun:40772/
+mirakurunPath: http://192.168.100.80:40772/
+# mirakurunPath: unix://
 
 # dbtype: sqlite
 # sqlite:
@@ -44,14 +45,14 @@ encode:
       suffix: .mp4
       rate: 4.0
 
-reserveNewAddtionCommand: '/bin/sh /app/EPGS-to-Discord-v2/run.sh reserve'
-reserveUpdateCommand: '/bin/sh /app/EPGS-to-Discord-v2/run.sh update'
-reservedeletedCommand: '/bin/sh /app/EPGS-to-Discord-v2/run.sh delete'
-recordingPreStartCommand: '/bin/sh /app/EPGS-to-Discord-v2/run.sh prestart'
-recordingPrepRecFailedCommand: '/bin/sh /app/EPGS-to-Discord-v2/run.sh prepfailed'
-recordingStartCommand: '/bin/sh /app/EPGS-to-Discord-v2/run.sh start'
-recordingFinishCommand: '/bin/sh /app/EPGS-to-Discord-v2/run.sh end'
-recordingFailedCommand: '/bin/sh /app/EPGS-to-Discord-v2/run.sh recfailed'
+reserveNewAddtionCommand: '/bin/sh /opt/epgstation/EPGS-to-Discord-v2/run.sh reserve'
+reserveUpdateCommand: '/bin/sh /opt/epgstation/EPGS-to-Discord-v2/run.sh update'
+reservedeletedCommand: '/bin/sh /opt/epgstation/EPGS-to-Discord-v2/run.sh delete'
+recordingPreStartCommand: '/bin/sh /opt/epgstation/EPGS-to-Discord-v2/run.sh prestart'
+recordingPrepRecFailedCommand: '/bin/sh /opt/epgstation/EPGS-to-Discord-v2/run.sh prepfailed'
+recordingStartCommand: '/bin/sh /opt/epgstation/EPGS-to-Discord-v2/run.sh start'
+recordingFinishCommand: '/bin/sh /opt/epgstation/EPGS-to-Discord-v2/run.sh end'
+recordingFailedCommand: '/bin/sh /opt/epgstation/EPGS-to-Discord-v2/run.sh recfailed'
 
 urlscheme:
     m2ts:
