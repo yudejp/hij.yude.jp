@@ -12,7 +12,7 @@ map $arg_v $asset_immutable {
 
 server {
     listen 80;
-    server_name nc.yude.jp 100.102.169.53 sandy.yudesleepy.gmail.com.beta.tailscale.net;
+    server_name nc.yude.jp 100.102.169.53 alder.yudesleepy.gmail.com.beta.tailscale.net alder;
 
     root /var/www/html;
 
