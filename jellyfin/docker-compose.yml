@@ -9,6 +9,7 @@ services:
       - cache:/cache
       - /mnt/data4/Documents/NSFW:/media-nsfw
       - /mnt/data4/dtv:/media-dtv
+      - /mnt/data3/recorded:/media-recorded
       - /mnt/data4/Documents/Syncthing/Music:/media-music
     restart: "unless-stopped"
 
