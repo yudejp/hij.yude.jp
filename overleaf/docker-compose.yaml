@@ -2,8 +2,8 @@ version: '3.8'
 services:
     sharelatex:
       restart: always
-    #   image: sharelatex/sharelatex
-      image: sharelatex/sharelatex:with-texlive-full
+      image: sharelatex/sharelatex
+      #image: sharelatex/sharelatex:with-texlive-full
       container_name: sharelatex
       depends_on:
           mongo:
@@ -16,7 +16,7 @@ services:
           - mongo
           - redis
       volumes:
-          - ~/sharelatex_data:/var/lib/sharelatex
+          - ./data/app:/var/lib/sharelatex
       environment:
           SHARELATEX_APP_NAME: Overleaf Community Edition
           SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
@@ -52,7 +52,7 @@ services:
       expose:
           - 27017
       volumes:
-          - ~/mongo_data:/data/db
+          - ./data/db:/data/db
       healthcheck:
           test: echo 'db.stats().ok' | mongo localhost:27017/test --quiet
           interval: 10s
@@ -66,7 +66,7 @@ services:
       expose:
           - 6379
       volumes:
-          - ~/redis_data:/data
+          - ./data/redis:/data
 
     cloudflared:
       image: cloudflare/cloudflared:latest
