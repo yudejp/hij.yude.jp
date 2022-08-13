@@ -112,3 +112,6 @@ grafana/data
 
 # mirakc
 dtv/mirakc/epg
+
+# Overleaf
+overleaf/data
