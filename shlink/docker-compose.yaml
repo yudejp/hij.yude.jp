@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  shlink:
+    image: shlinkio/shlink:stable
+    restart: always
+    environment:
+      - TZ="Asia/Tokyo"
+      - DEFAULT_DOMAIN=go.yude.jp
+      - IS_HTTPS_ENABLED=true
+      - DB_DRIVER=maria
+      - DB_USER=shlink
+      - DB_NAME=shlink
+      - DB_PASSWORD=shlink
+      - DB_HOST=database
+    depends_on:
+      - database
+
+  database:
+    image: mariadb:10.8
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD=<MARIADB_ROOT_PASSWORD>
+      - MARIADB_DATABASE=shlink
+      - MARIADB_USER=shlink
+      - MARIADB_PASSWORD=shlink
+    volumes:
+      - /opt/shlink/db_data:/var/lib/mysql
+  
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    user: root
+    restart: unless-stopped
+    command: tunnel --url http://shlink:8080 --no-chunked-encoding run shlink
+    volumes:
+      - '$HOME/.cloudflared:/root/.cloudflared'
