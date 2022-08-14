@@ -4,7 +4,7 @@ epg:
 server:
   addrs:
     - !http '0.0.0.0:40772'
-    - !unix /var/lib/mirakc/epg/mirakc.sock
+    - !unix /var/run/mirakc.sock
 
 channels:
   # Add channels of interest.

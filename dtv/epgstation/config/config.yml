@@ -1,5 +1,6 @@
 port: 8888
-mirakurunPath: http://host.docker.internal:40772/
+# mirakurunPath: http://host.docker.internal:40772/
+mirakurunPath: http+unix://%2Fvar%2Frun%2Fmirakc.sock/
 # dbtype: sqlite
 # sqlite:
 #   extensions:
