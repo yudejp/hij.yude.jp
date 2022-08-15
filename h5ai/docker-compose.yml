@@ -1,3 +1,5 @@
+version: '3.9'
+
 services:
   h5ai:
     image: yude/h5ai
@@ -5,25 +7,11 @@ services:
     container_name: h5ai
     volumes:
       - /mnt/data3/h5ai:/h5ai
-    networks:
-      - internal
 
   cloudflared:
-      image: cloudflare/cloudflared:2022.6.3-amd64
-      user: root
-      command: tunnel
-      environment:
-          - TUNNEL_HOSTNAME=files.yude.jp
-          - TUNNEL_URL=http://h5ai
-          - TUNNEL_ORIGIN_CERT=/root/.cloudflared/cert.pem
-      volumes:
-          - '$HOME/.cloudflared:/root/.cloudflared'
-      extra_hosts:
-          - "host.docker.internal:host-gateway"
-      restart: always
-      networks:
-      - internal
-
-networks:
-  internal:
-    external: false
+    image: cloudflare/cloudflared:latest
+    user: root
+    restart: unless-stopped
+    command: tunnel --url http://h5ai --no-chunked-encoding run files
+    volumes:
+      - '$HOME/.cloudflared:/root/.cloudflared'
