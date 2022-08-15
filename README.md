@@ -1,5 +1,5 @@
 # docker
-🐬 All Docker containers running on sandy (yude.jp main server)
+🐬 All Docker containers running on alder (yude.jp main server)
 
 ## License
 MIT License
