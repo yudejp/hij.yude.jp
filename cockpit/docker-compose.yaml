@@ -1,9 +1,0 @@
-version: '3.8'
-services:
-    cloudflared:
-      image: cloudflare/cloudflared:latest
-      user: root
-      restart: unless-stopped
-      command: tunnel --url http://192.168.100.80:9090 --no-chunked-encoding run cockpit-alder
-      volumes:
-        - '$HOME/.cloudflared:/root/.cloudflared'
