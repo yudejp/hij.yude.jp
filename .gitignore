@@ -96,6 +96,7 @@ hvcan/.env
 hvcan/nginx/html
 hvcan/pleroma/volumes
 hvcan/pleroma/.env
+hvcan/pleroma/environments/pleroma/pleroma.env
 
 # Mastodon
 mastodon/postgres
