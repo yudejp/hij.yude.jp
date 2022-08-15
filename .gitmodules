@@ -4,3 +4,6 @@
 [submodule "dtv/epgstation/EPGS-to-Discord-v2"]
 	path = dtv/epgstation/EPGS-to-Discord-v2
 	url = https://github.com/yude/EPGS-to-Discord-v2.git
+[submodule "mastodon"]
+	path = mastodon
+	url = git@github.com:yudejp/mastodon.git
