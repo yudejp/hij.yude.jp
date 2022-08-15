@@ -1,8 +1,8 @@
 version: '3'
 services:
-    replyman:
-        restart: always
-        container_name: replyman
-        image: ghcr.io/yuderobot/replyman:main
-        env_file:
-          - .env
+  replyman:
+    restart: always
+    container_name: replyman
+    image: ghcr.io/yuderobot/replyman:main
+    env_file:
+      - .env

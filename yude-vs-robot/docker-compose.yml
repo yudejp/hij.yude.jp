@@ -1,10 +1,10 @@
 version: '3'
 services:
-    app:
-      restart: always
-      container_name: yude-vs-robot
-      image: ghcr.io/yuderobot/yude-vs-robot:main
-      volumes:
-        - "./data:/app/data"
-      env_file:
-        - .env
+  app:
+    restart: always
+    container_name: yude-vs-robot
+    image: ghcr.io/yuderobot/yude-vs-robot:main
+    volumes:
+      - "./data:/app/data"
+    env_file:
+      - .env
