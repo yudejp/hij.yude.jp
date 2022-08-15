@@ -17,6 +17,8 @@ services:
       GF_RENDERING_SERVER_URL: http://renderer:8081/render
       GF_RENDERING_CALLBACK_URL: https://grafana.yude.jp/
       GF_LOG_FILTERS: rendering:debug
+    depends_on:
+      - renderer
   
   cloudflared:
     image: cloudflare/cloudflared:latest
@@ -26,6 +28,8 @@ services:
     volumes:
       - '$HOME/.cloudflared:/root/.cloudflared'
     networks:
+      - grafana
+    depends_on:
       - grafana
 
   renderer:

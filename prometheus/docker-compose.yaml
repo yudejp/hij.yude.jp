@@ -52,3 +52,5 @@ services:
       - '$HOME/.cloudflared:/root/.cloudflared'
     networks:
       - monitoring
+    depends_on:
+      - prometheus

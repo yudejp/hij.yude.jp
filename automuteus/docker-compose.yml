@@ -73,6 +73,8 @@ services:
     networks:
       - internal
       - ex
+    depends_on:
+      - galactus
 
 networks:
   internal:

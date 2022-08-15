@@ -15,3 +15,5 @@ services:
     command: tunnel --url http://h5ai --no-chunked-encoding run files
     volumes:
       - '$HOME/.cloudflared:/root/.cloudflared'
+    depends_on:
+      - h5ai

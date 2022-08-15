@@ -13,3 +13,5 @@ services:
     command: tunnel --url http://portainer:9000 --no-chunked-encoding run pt1
     volumes:
       - '$HOME/.cloudflared:/root/.cloudflared'
+    depends_on:
+      - portainer

@@ -18,3 +18,5 @@ services:
     command: tunnel --url http://h2o:8080 --no-chunked-encoding run fakku
     volumes:
       - '$HOME/.cloudflared:/root/.cloudflared'
+    depends_on:
+      - h2o

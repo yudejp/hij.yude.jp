@@ -34,3 +34,5 @@ services:
     command: tunnel --url http://shlink:8080 --no-chunked-encoding run shlink
     volumes:
       - '$HOME/.cloudflared:/root/.cloudflared'
+    depends_on:
+      - shlink
