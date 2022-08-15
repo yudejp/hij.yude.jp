@@ -1,13 +1,11 @@
-version: '3'
+version: '3.9'
 services:
   cloudflared:
-    image: cloudflare/cloudflared:2022.3.4-amd64
+    image: cloudflare/cloudflared:latest
     user: root
-    command: tunnel
-    environment:
-      - TUNNEL_HOSTNAME=camera.yude.jp
-      - TUNNEL_URL=http://192.168.100.80:8086/0/stream
-      - TUNNEL_ORIGIN_CERT=/root/.cloudflared/cert.pem
+    restart: unless-stopped
+    command: tunnel --url http://host.docker.internal:8086/0/stream --no-chunked-encoding run motion
     volumes:
       - '$HOME/.cloudflared:/root/.cloudflared'
-    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

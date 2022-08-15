@@ -66,16 +66,16 @@ services:
       - default
 
   cloudflared:
-    image: cloudflare/cloudflared:2021.8.3
+    image: cloudflare/cloudflared:latest
     user: root
-    command: tunnel --hostname nc.yude.jp --url http://web:80 --loglevel info
+    restart: unless-stopped
+    command: tunnel --url http://web --no-chunked-encoding run nextcloud
     volumes:
       - '$HOME/.cloudflared:/root/.cloudflared'
     networks:
       - internal
       - default
-    restart: always
-
+  
   cron:
     image: nextcloud:apache
     restart: always

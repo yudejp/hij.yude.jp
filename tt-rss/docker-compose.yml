@@ -61,18 +61,16 @@ services:
       - app:/var/www/html:ro
     depends_on:
       - app
-  
+
   cloudflared:
-    image: ghcr.io/milgradesec/cloudflared:latest
+    image: cloudflare/cloudflared:latest
     user: root
-    command: tunnel
-    environment:
-      - TUNNEL_HOSTNAME=tt-rss.yude.jp
-      - TUNNEL_URL=http://web-nginx:80
-      - TUNNEL_ORIGIN_CERT=/root/.cloudflared/cert.pem
+    restart: unless-stopped
+    command: tunnel --url http://web-nginx --no-chunked-encoding run tt-rss
     volumes:
       - '$HOME/.cloudflared:/root/.cloudflared'
-    restart: always
+    depends_on:
+      - web-nginx
 
 volumes:
   db:
