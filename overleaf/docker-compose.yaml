@@ -1,77 +1,68 @@
 version: '3.8'
 services:
-    sharelatex:
-      restart: always
-      image: sharelatex/sharelatex
-      #image: sharelatex/sharelatex:with-texlive-full
-      container_name: sharelatex
-      depends_on:
-          mongo:
-              condition: service_healthy
-          redis:
-              condition: service_started
-      ports:
-          - 80:80
-      links:
-          - mongo
-          - redis
-      volumes:
-          - ./data/app:/var/lib/sharelatex
-      environment:
-          SHARELATEX_APP_NAME: Overleaf Community Edition
-          SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
-          SHARELATEX_REDIS_HOST: redis
-          REDIS_HOST: redis
-          ENABLED_LINKED_FILE_TYPES: 'project_file,project_output_file'
-          ENABLE_CONVERSIONS: 'true'
-          EMAIL_CONFIRMATION_DISABLED: 'true'
-          TEXMFVAR: /var/lib/sharelatex/tmp/texmf-var
-          SHARELATEX_SITE_URL: https://overleaf.yude.jp
-          SHARELATEX_NAV_TITLE: Overleaf (yude.jp)
-          SHARELATEX_ADMIN_EMAIL: admin@yude.jp
+  sharelatex:
+    restart: always
+    image: sharelatex/sharelatex
+    #image: sharelatex/sharelatex:with-texlive-full
+    container_name: sharelatex
+    depends_on:
+      - mongo
+    condition: service_healthy
 
-          # SHARELATEX_LEFT_FOOTER: '[{"text": "Powered by <a href=\"https://www.sharelatex.com\">ShareLaTeX</a> 2016"},{"text": "Another page I want to link to can be found <a href=\"here\">here</a>"} ]'
-          # SHARELATEX_RIGHT_FOOTER: '[{"text": "Hello I am on the Right"} ]'
-
-          SHARELATEX_EMAIL_FROM_ADDRESS: "noreply@yude.jp"
-          # SHARELATEX_EMAIL_SMTP_HOST: smtp.mydomain.com
-          # SHARELATEX_EMAIL_SMTP_PORT: 587
-          # SHARELATEX_EMAIL_SMTP_SECURE: false
-          # SHARELATEX_EMAIL_SMTP_USER:
-          # SHARELATEX_EMAIL_SMTP_PASS:
-          # SHARELATEX_EMAIL_SMTP_TLS_REJECT_UNAUTH: true
-          # SHARELATEX_EMAIL_SMTP_IGNORE_TLS: false
-          # SHARELATEX_EMAIL_SMTP_NAME: '127.0.0.1'
-          # SHARELATEX_EMAIL_SMTP_LOGGER: true
-          SHARELATEX_CUSTOM_EMAIL_FOOTER: 'Running on <a href="https://www.yude.jp">yude.jp</a> server.'
-
-    mongo:
-      restart: always
-      image: mongo:4.2
-      container_name: mongo
-      expose:
-          - 27017
-      volumes:
-          - ./data/db:/data/db
-      healthcheck:
-          test: echo 'db.stats().ok' | mongo localhost:27017/test --quiet
-          interval: 10s
-          timeout: 10s
-          retries: 5
-
-    redis:
-      restart: always
-      image: redis:5
-      container_name: redis
-      expose:
-          - 6379
-      volumes:
-          - ./data/redis:/data
-
-    cloudflared:
-      image: cloudflare/cloudflared:latest
-      user: root
-      restart: unless-stopped
-      command: tunnel --url http://sharelatex --no-chunked-encoding run overleaf
-      volumes:
-        - '$HOME/.cloudflared:/root/.cloudflared'
+  redis:
+    condition: service_started
+    ports:
+      - 80:80
+    links:
+      - mongo
+      - redis
+    volumes:
+      - ./data/app:/var/lib/sharelatex
+    environment:
+      SHARELATEX_APP_NAME: Overleaf Community Edition
+      SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
+      SHARELATEX_REDIS_HOST: redis
+      REDIS_HOST: redis
+      ENABLED_LINKED_FILE_TYPES: 'project_file,project_output_file'
+      ENABLE_CONVERSIONS: 'true'
+      EMAIL_CONFIRMATION_DISABLED: 'true'
+      TEXMFVAR: /var/lib/sharelatex/tmp/texmf-var
+      SHARELATEX_SITE_URL: https://overleaf.yude.jp
+      SHARELATEX_NAV_TITLE: Overleaf (yude.jp)
+      SHARELATEX_ADMIN_EMAIL: admin@yude.jp
+      SHARELATEX_EMAIL_FROM_ADDRESS: "noreply@yude.jp"
+      SHARELATEX_CUSTOM_EMAIL_FOOTER: 'Running on <a href="https://www.yude.jp">yude.jp</a> server.'
+                
+  mongo:
+    restart: always
+    image: mongo:4.2
+    container_name: mongo
+    expose:
+      - 27017
+    volumes:
+      - ./data/db:/data/db
+    healthcheck:
+      test: echo 'db.stats().ok' | mongo localhost:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+                              
+  redis:
+    restart: always
+    image: redis:5
+    container_name: redis
+    expose:
+      - 6379
+    volumes:
+      - ./data/redis:/data
+  
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    user: root
+    restart: unless-stopped
+    command: tunnel --url http://sharelatex --no-chunked-encoding run overleaf
+    volumes:
+      - '$HOME/.cloudflared:/root/.cloudflared'
+    depends_on:
+      - sharelatex
+      
