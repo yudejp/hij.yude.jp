@@ -2,15 +2,13 @@ version: '3.8'
 services:
   sharelatex:
     restart: always
-    image: sharelatex/sharelatex
-    #image: sharelatex/sharelatex:with-texlive-full
+    #image: sharelatex/sharelatex
+    image: sharelatex/sharelatex:with-texlive-full
     container_name: sharelatex
     depends_on:
       - mongo
-    condition: service_healthy
 
   redis:
-    condition: service_started
     ports:
       - 80:80
     links:
@@ -32,7 +30,7 @@ services:
       SHARELATEX_ADMIN_EMAIL: admin@yude.jp
       SHARELATEX_EMAIL_FROM_ADDRESS: "noreply@yude.jp"
       SHARELATEX_CUSTOM_EMAIL_FOOTER: 'Running on <a href="https://www.yude.jp">yude.jp</a> server.'
-                
+
   mongo:
     restart: always
     image: mongo:4.2
@@ -46,7 +44,7 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
-                              
+
   redis:
     restart: always
     image: redis:5
@@ -55,7 +53,7 @@ services:
       - 6379
     volumes:
       - ./data/redis:/data
-  
+
   cloudflared:
     image: cloudflare/cloudflared:latest
     user: root
@@ -65,4 +63,3 @@ services:
       - '$HOME/.cloudflared:/root/.cloudflared'
     depends_on:
       - sharelatex
-      
