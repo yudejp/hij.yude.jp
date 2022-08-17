@@ -1,0 +1,26 @@
+
+version: '3.9'
+services:
+  haste-server:
+    image: ghcr.io/yude/haste-server:master
+    environment:
+      - STORAGE_TYPE=file
+      - STORAGE_FILEPATH=/data
+      - KEYGENERATOR_TYPE=random
+    volumes:
+      - type: bind
+        source: /mnt/data3/haste-server-data
+        target: /data
+      - type: bind
+        source: ./README.md
+        target: /data/about.md
+  
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    user: root
+    restart: unless-stopped
+    command: tunnel --url http://haste-server:7777 --no-chunked-encoding run hastebin
+    volumes:
+      - '$HOME/.cloudflared:/root/.cloudflared'
+    depends_on:
+      - haste-server
