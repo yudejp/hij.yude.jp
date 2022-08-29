@@ -1,0 +1,27 @@
+version: '3'
+services:
+  app:
+    volumes:
+      - data:/opt/app/server-data
+    image: lovasoa/wbo
+    restart: on-failure
+    user: 1000:1000
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 60s
+    
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    user: root
+    restart: unless-stopped
+    command: tunnel --url http://app --no-chunked-encoding run wbo
+    volumes:
+      - '$HOME/.cloudflared:/root/.cloudflared'
+    depends_on:
+      - app
+
+volumes:
+  data:
