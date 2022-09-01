@@ -14,11 +14,12 @@ services:
       - type: bind
         source: ./README.md
         target: /data/about.md
+    restart: always
   
   cloudflared:
     image: cloudflare/cloudflared:latest
     user: root
-    restart: unless-stopped
+    restart: always
     command: tunnel --url http://haste-server:7777 --no-chunked-encoding run hastebin
     volumes:
       - '$HOME/.cloudflared:/root/.cloudflared'
