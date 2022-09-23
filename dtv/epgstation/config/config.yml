@@ -45,7 +45,7 @@ encode:
       rate: 4.0
 
 reserveNewAddtionCommand: '/bin/sh /opt/epgstation/EPGS-to-Discord-v2/run.sh reserve'
-reserveUpdateCommand: '/bin/sh /opt/epgstation/EPGS-to-Discord-v2/run.sh update'
+#reserveUpdateCommand: '/bin/sh /opt/epgstation/EPGS-to-Discord-v2/run.sh update'
 reservedeletedCommand: '/bin/sh /opt/epgstation/EPGS-to-Discord-v2/run.sh delete'
 recordingPreStartCommand: '/bin/sh /opt/epgstation/EPGS-to-Discord-v2/run.sh prestart'
 recordingPrepRecFailedCommand: '/bin/sh /opt/epgstation/EPGS-to-Discord-v2/run.sh prepfailed'
