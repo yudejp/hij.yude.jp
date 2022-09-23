@@ -27,12 +27,11 @@ services:
       - postgres
     volumes:
       - "logs:/app/logs"
-    networks:
-      - internal
   
   galactus:
     image: automuteus/galactus:${GALACTUS_TAG:?err}
     restart: always
+    container_name: galactus
     environment:
       # Do **NOT** change these
       - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN:?err}
@@ -41,16 +40,12 @@ services:
       - GALACTUS_PORT=${GALACTUS_PORT}
     depends_on:
       - redis
-    networks:
-      - internal
 
   redis:
     image: redis:alpine
     restart: always
     volumes:
       - "./redis:/data"
-    networks:
-      - internal  
 
   postgres:
     image: postgres:12-alpine
@@ -60,21 +55,6 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASS}
     volumes:
       - "./db:/var/lib/postgresql/data"
-    networks:
-      - internal
-  
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    user: root
-    command: tunnel --url http://galactus:5858 --no-chunked-encoding run galactus
-    volumes:
-        - '$HOME/.cloudflared:/root/.cloudflared'
-    restart: always
-    networks:
-      - internal
-      - ex
-    depends_on:
-      - galactus
 
 networks:
   internal:

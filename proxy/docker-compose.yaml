@@ -29,6 +29,7 @@ services:
       - roundcube_default
       - grafana_default
       - prometheus_default
+      - automuteus_default
       - internal
   
   cloudflared:
@@ -74,4 +75,6 @@ networks:
   grafana_default:
     external: true
   prometheus_default:
+    external: true
+  automuteus_default:
     external: true
