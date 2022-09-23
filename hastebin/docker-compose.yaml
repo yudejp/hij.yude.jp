@@ -3,6 +3,7 @@ version: '3.9'
 services:
   haste-server:
     image: ghcr.io/yude/haste-server:master
+    container_name: hastebin
     environment:
       - STORAGE_TYPE=file
       - STORAGE_FILEPATH=/data
@@ -15,13 +16,3 @@ services:
         source: ./README.md
         target: /data/about.md
     restart: always
-  
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    user: root
-    restart: always
-    command: tunnel --url http://haste-server:7777 --no-chunked-encoding run hastebin
-    volumes:
-      - '$HOME/.cloudflared:/root/.cloudflared'
-    depends_on:
-      - haste-server

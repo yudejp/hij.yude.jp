@@ -10,8 +10,6 @@ services:
     expose:
       - 3000
     user: '1000'
-    networks:
-      - grafana
     environment:
       GF_INSTALL_PLUGINS: grafana-clock-panel,grafana-simple-json-datasource,grafana-image-renderer
       GF_RENDERING_SERVER_URL: http://renderer:8081/render
@@ -19,23 +17,6 @@ services:
       GF_LOG_FILTERS: rendering:debug
     depends_on:
       - renderer
-  
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    user: root
-    restart: unless-stopped
-    command: tunnel --url http://grafana:3000 --no-chunked-encoding run grafana
-    volumes:
-      - '$HOME/.cloudflared:/root/.cloudflared'
-    networks:
-      - grafana
-    depends_on:
-      - grafana
 
   renderer:
     image: grafana/grafana-image-renderer:latest
-    networks:
-      - grafana
-
-networks:
-  grafana:

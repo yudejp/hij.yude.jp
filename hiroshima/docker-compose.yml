@@ -2,6 +2,8 @@ version: '3.9'
 services:
   h2o:
     image: lkwg82/h2o-http2-server:latest
+    container_name: hiroshima
+    hostname: hiroshima
     restart: unless-stopped
     volumes:
       - type: bind
@@ -10,13 +12,3 @@ services:
       - type: bind
         source: "./html"
         target: "/var/www/html"
-  
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    user: root
-    restart: unless-stopped
-    command: tunnel --url http://h2o:8080 --no-chunked-encoding run hiroshima
-    volumes:
-      - '$HOME/.cloudflared:/root/.cloudflared'
-    depends_on:
-      - h2o

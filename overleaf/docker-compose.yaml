@@ -53,13 +53,3 @@ services:
       - 6379
     volumes:
       - ./data/redis:/data
-
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    user: root
-    restart: unless-stopped
-    command: tunnel --url http://sharelatex --no-chunked-encoding run overleaf
-    volumes:
-      - '$HOME/.cloudflared:/root/.cloudflared'
-    depends_on:
-      - sharelatex

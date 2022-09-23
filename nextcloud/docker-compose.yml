@@ -8,14 +8,10 @@ services:
       - ./data/db:/var/lib/postgresql/data
     env_file:
       - db.env
-    networks:
-      - internal
 
   redis:
     image: redis:alpine
     restart: always
-    networks:
-      - internal
 
   app:
     image: nextcloud:fpm
@@ -35,9 +31,6 @@ services:
     depends_on:
       - db
       - redis
-    networks:
-      - internal
-      - default
 #    command: bash -c "
 #        apt -y update &&
 #        apt -y upgrade &&
@@ -50,6 +43,7 @@ services:
   web:
     image: nginx
     restart: always
+    container_name: nextcloud
     links:
       - app
     ports:
@@ -61,22 +55,6 @@ services:
       - app
     depends_on:
       - app
-    networks:
-      - internal
-      - default
-
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    user: root
-    restart: unless-stopped
-    command: tunnel --url http://web --no-chunked-encoding run nextcloud
-    volumes:
-      - '$HOME/.cloudflared:/root/.cloudflared'
-    networks:
-      - internal
-      - default
-    depends_on:
-      - web
   
   cron:
     image: nextcloud:apache

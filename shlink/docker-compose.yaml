@@ -4,6 +4,7 @@ services:
   shlink:
     image: shlinkio/shlink:stable
     restart: always
+    container_name: shlink
     environment:
       - TZ="Asia/Tokyo"
       - DEFAULT_DOMAIN=go.yude.jp
@@ -26,13 +27,3 @@ services:
       - MARIADB_PASSWORD=shlink
     volumes:
       - /opt/shlink/db_data:/var/lib/mysql
-  
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    user: root
-    restart: unless-stopped
-    command: tunnel --url http://shlink:8080 --no-chunked-encoding run shlink
-    volumes:
-      - '$HOME/.cloudflared:/root/.cloudflared'
-    depends_on:
-      - shlink

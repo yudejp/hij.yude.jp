@@ -32,13 +32,3 @@ services:
       - POSTGRES_DB=gitea
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
-  
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    user: root
-    restart: unless-stopped
-    command: tunnel --url http://server:3000 --no-chunked-encoding run gitea
-    volumes:
-      - '$HOME/.cloudflared:/root/.cloudflared'
-    depends_on:
-      - server

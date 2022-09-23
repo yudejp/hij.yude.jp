@@ -55,22 +55,11 @@ services:
   web-nginx:
     build: ./web-nginx
     restart: unless-stopped
-    ports:
-      - ${HTTP_PORT}:80
+    container_name: tt-rss
     volumes:
       - app:/var/www/html:ro
     depends_on:
       - app
-
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    user: root
-    restart: unless-stopped
-    command: tunnel --url http://web-nginx --no-chunked-encoding run tt-rss
-    volumes:
-      - '$HOME/.cloudflared:/root/.cloudflared'
-    depends_on:
-      - web-nginx
 
 volumes:
   db:

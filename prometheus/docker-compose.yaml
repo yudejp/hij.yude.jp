@@ -1,11 +1,5 @@
 version: '3.8'
 
-networks:
-  monitoring:
-    driver: bridge
-  # grafana:
-  #   external: true
-    
 volumes:
   prometheus_data: {}
 
@@ -25,8 +19,6 @@ services:
       - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
     expose:
       - 9100
-    networks:
-      - monitoring
 
   prometheus:
     image: prom/prometheus:latest
@@ -40,17 +32,3 @@ services:
       - "--config.file=/etc/prometheus/prometheus.yaml"
     expose:
       - 9090
-    networks:
-      - monitoring
-  
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    user: root
-    restart: unless-stopped
-    command: tunnel --url http://prometheus:9090 --no-chunked-encoding run prometheus
-    volumes:
-      - '$HOME/.cloudflared:/root/.cloudflared'
-    networks:
-      - monitoring
-    depends_on:
-      - prometheus

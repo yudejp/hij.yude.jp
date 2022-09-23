@@ -7,13 +7,3 @@ services:
     container_name: h5ai
     volumes:
       - /mnt/data3/h5ai:/h5ai
-
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    user: root
-    restart: unless-stopped
-    command: tunnel --url http://h5ai --no-chunked-encoding run files
-    volumes:
-      - '$HOME/.cloudflared:/root/.cloudflared'
-    depends_on:
-      - h5ai

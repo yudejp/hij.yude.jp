@@ -8,9 +8,6 @@ services:
     links:
       - db
       - redis
-    networks:
-      - internal_network
-      - external_network
     volumes:
       - ./files:/misskey/files
       - ./.config/default.yml:/misskey/.config/default.yml:ro
@@ -18,46 +15,20 @@ services:
   redis:
     restart: always
     image: redis:4.0-alpine
-    networks:
-      - internal_network
     volumes:
       - ./redis:/data
 
   db:
     restart: always
     image: postgres:12.2-alpine
-    networks:
-      - internal_network
     env_file:
       - .config/docker.env
     volumes:
       - ./db:/var/lib/postgresql/data
-  
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    user: root
-    restart: unless-stopped
-    command: tunnel --url http://nginx --no-chunked-encoding run misskey
-    volumes:
-      - '$HOME/.cloudflared:/root/.cloudflared'
-    depends_on:
-      - h5ai
-    networks:
-      - external_network
-      - internal_network
-    depends_on:
-      - web
 
   nginx:
     image: nginx:latest
+    container_name: misskey
     volumes:
       - ./nginx/misskey.conf:/etc/nginx/conf.d/misskey.conf
     restart: always
-    networks:
-      - external_network
-      - internal_network
-
-networks:
-  internal_network:
-    internal: true
-  external_network:

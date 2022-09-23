@@ -1,0 +1,77 @@
+version: '3.9'
+services:
+  h2o:
+    ports:
+      - 8080:8080
+    image: lkwg82/h2o-http2-server:v2.2.6
+    restart: unless-stopped
+    working_dir: /etc/h2o
+    volumes:
+      - type: bind
+        source: "./h2o.conf"
+        target: "/etc/h2o/h2o.conf"
+      - type: bind
+        source: "./html"
+        target: "/var/www/html"
+    networks:
+      - hiroshima_default
+      - h5ai_default
+      - f_default
+      - portainer_default
+      - wbo_default
+      - gitea_default
+      - mastodon_default
+      - misskey_default
+      - nextcloud_default
+      - overleaf_default
+      - tt-rss_default
+      - shlink_default
+      - roundcube_default
+      - grafana_default
+      - prometheus_default
+      - internal
+  
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    user: root
+    restart: unless-stopped
+    command: tunnel --url http://h2o:8080 --no-chunked-encoding run proxy1
+    volumes:
+      - '$HOME/.cloudflared:/root/.cloudflared'
+    depends_on:
+      - h2o
+    networks:
+      - internal
+
+networks:
+  internal:
+  hiroshima_default:
+    external: true
+  h5ai_default:
+    external: true
+  f_default:
+    external: true
+  portainer_default:
+    external: true
+  wbo_default:
+    external: true
+  gitea_default:
+    external: true
+  mastodon_default:
+    external: true
+  misskey_default:
+    external: true
+  nextcloud_default:
+    external: true
+  overleaf_default:
+    external: true
+  tt-rss_default:
+    external: true
+  shlink_default:
+    external: true
+  roundcube_default:
+    external: true
+  grafana_default:
+    external: true
+  prometheus_default:
+    external: true
