@@ -12,7 +12,7 @@ services:
         volumes:
             - ./mirakc/epg:/var/lib/mirakc/epg
             - ./mirakc/config.yml:/etc/mirakc/config.yml
-            - mirakc_socket:/var/run
+            - socks:/var/run
         devices:
             - /dev/px4video0:/dev/px4video0
             - /dev/px4video1:/dev/px4video1
@@ -25,7 +25,7 @@ services:
         user: 0:0
         environment:
             TZ: Asia/Tokyo
-            RUST_LOG: info
+            RUST_LOG: info,mirakc=debug
 
     mysql:
         container_name: mysql-epgstation
@@ -56,7 +56,7 @@ services:
             - ./epgstation/logs:/opt/epgstation/logs
             - /mnt/data3/recorded:/opt/epgstation/recorded
             - ./epgstation/EPGS-to-Discord-v2:/opt/epgstation/EPGS-to-Discord-v2
-            - mirakc_socket:/var/run
+            - socks:/var/run
         environment:
             TZ: "Asia/Tokyo"
         user: 0:0
@@ -72,4 +72,4 @@ services:
             - "host.docker.internal:host-gateway"
 
 volumes:
-    mirakc_socket:
+    socks:
