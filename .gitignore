@@ -114,3 +114,6 @@ grafana/data
 
 # Overleaf
 overleaf/data
+
+# np2bio
+np2bio/.env
