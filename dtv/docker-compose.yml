@@ -14,10 +14,10 @@ services:
             - ./mirakc/config.yml:/etc/mirakc/config.yml
             - socks:/var/run
         devices:
-            - /dev/px4video0:/dev/px4video0
-            - /dev/px4video1:/dev/px4video1
-            - /dev/px4video2:/dev/px4video2
-            - /dev/px4video3:/dev/px4video3
+            - /dev/isdb6014video0:/dev/isdb6014video0
+            - /dev/isdb6014video1:/dev/isdb6014video1
+            - /dev/isdb6014video2:/dev/isdb6014video2
+            - /dev/isdb6014video3:/dev/isdb6014video3
             - /dev/bus:/dev/bus
         restart: always
         extra_hosts:
