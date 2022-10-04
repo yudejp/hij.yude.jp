@@ -108,6 +108,7 @@ addchan/.env
 
 # Prometheus
 prometheus/data
+prometheus/.env
 
 # Grafana
 grafana/data
