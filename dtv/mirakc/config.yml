@@ -225,21 +225,21 @@ channels:
 tuners:
   # Add tuners available on a local machine.
   - name: sat1
-    types: [BS, CS]
+    types: [GR, BS, CS]
     command: >-
-      recpt1 --device /dev/px4video0 {{{channel}}} - -
+      recpt1 --device /dev/isdb6014video0 {{{channel}}} - -
   - name: sat2
-    types: [BS, CS]
+    types: [GR, BS, CS]
     command: >-
-      recpt1 --device /dev/px4video1 {{{channel}}} - -
+      recpt1 --device /dev/isdb6014video1 {{{channel}}} - -
   - name: gr1
-    types: [GR]
+    types: [GR, BS, CS]
     command: >-
-      recpt1 --device /dev/px4video2 {{{channel}}} - -
+      recpt1 --device /dev/isdb6014video2 {{{channel}}} - -
   - name: gr2
-    types: [GR]
+    types: [GR, BS, CS]
     command: >-
-      recpt1 --device /dev/px4video3 {{{channel}}} - -
+      recpt1 --device /dev/isdb6014video3 {{{channel}}} - -
 
 filters:
   decode-filter:
