@@ -3,3 +3,4 @@
   targets:
     - node-exporter:9100
     - 192.168.100.1:9100
+    - switchbot-exporter:8080

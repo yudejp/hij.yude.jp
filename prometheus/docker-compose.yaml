@@ -32,3 +32,10 @@ services:
       - "--config.file=/etc/prometheus/prometheus.yaml"
     expose:
       - 9090
+
+  switchbot-exporter:
+    image: ghcr.io/yude/switchbot-exporter:master
+    container_name: switchbot-exporter
+    hostname: switchbot-exporter
+    restart: unless-stopped
+    env_file: .env

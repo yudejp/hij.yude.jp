@@ -7,6 +7,9 @@ services:
     restart: unless-stopped
     volumes:
       - ./data:/var/lib/grafana
+      - type: bind
+        source: ./grafana.ini
+        target: /etc/grafana/grafana.ini
     expose:
       - 3000
     user: '1000'
@@ -17,6 +20,15 @@ services:
       GF_LOG_FILTERS: rendering:debug
     depends_on:
       - renderer
+    networks:
+      - default
+      - prometheus_default
 
   renderer:
     image: grafana/grafana-image-renderer:latest
+    networks:
+      - default
+
+networks:
+  prometheus_default:
+    external: true
