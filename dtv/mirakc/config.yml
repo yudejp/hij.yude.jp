@@ -224,19 +224,19 @@ channels:
 
 tuners:
   # Add tuners available on a local machine.
-  - name: sat1
+  - name: tun1
     types: [GR, BS, CS]
     command: >-
       recpt1 --device /dev/isdb6014video0 {{{channel}}} - -
-  - name: sat2
+  - name: tun2
     types: [GR, BS, CS]
     command: >-
       recpt1 --device /dev/isdb6014video1 {{{channel}}} - -
-  - name: gr1
+  - name: tun3
     types: [GR, BS, CS]
     command: >-
       recpt1 --device /dev/isdb6014video2 {{{channel}}} - -
-  - name: gr2
+  - name: tun4
     types: [GR, BS, CS]
     command: >-
       recpt1 --device /dev/isdb6014video3 {{{channel}}} - -
