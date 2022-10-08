@@ -121,3 +121,6 @@ np2bio/.env
 
 # np2mast
 np2mast/.env
+
+# epgswatch
+epgswatch/.env

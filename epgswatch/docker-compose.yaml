@@ -4,9 +4,4 @@ services:
   epgswatcher:
     image: ghcr.io/yude/epgswatcher:master
     restart: unless-stopped
-    environment:
-      EPGS_URL: "http://192.168.100.80:8888"
-      CRON: "@every 15m"
-      DISCORD_URL: "https://discord.com/api/webhooks/1015065679348641853/XwGi4bsnsKAj300t1EswCcy1NWCGjG0_JkDYys-7DWWMj8epK__WRg1bUkQbzJl4Onbs"
-      MIRAKURUN_MSG: ":warning: EPGStation が Mirakurun (mirakc) バックエンドと接続できていません！ <@116124230243975173>"
-      EPGS_MSG: ":warning: EPGStation に接続できません！ <@116124230243975173>"
+    env_file: .env
