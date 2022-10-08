@@ -245,3 +245,9 @@ filters:
   decode-filter:
     command: >-
       arib-b25-stream-test
+
+jobs:
+  update-schedules:
+    command: 'mirakc-arib collect-eits{{#sids}} --sids={{{.}}}{{/sids}}{{#xsids}} --xsids={{{.}}}{{/xsids}}'
+    schedule: '*/5 * * * * *'
+    disabled: false

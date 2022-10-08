@@ -26,6 +26,7 @@ services:
         environment:
             TZ: Asia/Tokyo
             RUST_LOG: info,mirakc=debug
+            RUST_BACKTRACE: full
 
     mysql:
         container_name: mysql-epgstation
