@@ -55,7 +55,7 @@ services:
             - ./epgstation/data:/opt/epgstation/data
             - ./epgstation/thumbnail:/opt/epgstation/thumbnail
             - ./epgstation/logs:/opt/epgstation/logs
-            - /mnt/data3/recorded:/opt/epgstation/recorded
+            - /store3/recorded:/opt/epgstation/recorded
             - ./epgstation/EPGS-to-Discord-v2:/opt/epgstation/EPGS-to-Discord-v2
             - socks:/var/run
         environment:

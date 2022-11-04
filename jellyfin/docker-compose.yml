@@ -9,10 +9,10 @@ services:
     volumes:
       - ./config:/config
       - cache:/cache
-      - /mnt/data4/Documents/NSFW:/media-nsfw
-      - /mnt/data4/dtv:/media-dtv
-      - /mnt/data3/recorded:/media-recorded
-      - /mnt/data4/Documents/Syncthing/Music:/media-music
+      - /store1/Documents/NSFW:/media-nsfw
+      - /store1/dtv:/media-dtv
+      - /store2/recorded:/media-recorded
+      - /store1/Documents/Syncthing/Music:/media-music
     restart: "unless-stopped"
 
 volumes:

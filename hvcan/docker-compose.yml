@@ -18,8 +18,8 @@ services:
     image: servercontainers/samba
     container_name: hvcan-samba
     volumes:
-      - /mnt/data3/share:/shares/share
-      - /mnt/data3/h5ai:/shares/share/files.yude.jp
+      - /store3/share:/shares/share
+      - /store3/h5ai:/shares/share/files.yude.jp
     tty: yes
     restart: always
     cap_add:

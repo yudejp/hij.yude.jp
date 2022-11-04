@@ -1,8 +1,6 @@
 version: '3.9'
 services:
   h2o:
-    ports:
-      - 8080:8080
     image: lkwg82/h2o-http2-server:v2.2.6
     restart: unless-stopped
     working_dir: /etc/h2o
@@ -36,7 +34,7 @@ services:
     image: cloudflare/cloudflared:latest
     user: root
     restart: unless-stopped
-    command: tunnel --url http://h2o:8080 --no-chunked-encoding run proxy1
+    command: tunnel --url http://h2o:8080 --no-chunked-encoding run proxy01
     volumes:
       - '$HOME/.cloudflared:/root/.cloudflared'
     depends_on:

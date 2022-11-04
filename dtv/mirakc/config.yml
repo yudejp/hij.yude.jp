@@ -249,5 +249,5 @@ filters:
 jobs:
   update-schedules:
     command: 'mirakc-arib collect-eits{{#sids}} --sids={{{.}}}{{/sids}}{{#xsids}} --xsids={{{.}}}{{/xsids}}'
-    schedule: '*/10 * * * * *'
+    schedule: '*/30 * * * * *'
     disabled: false

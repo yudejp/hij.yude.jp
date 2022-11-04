@@ -10,7 +10,7 @@ services:
       - KEYGENERATOR_TYPE=random
     volumes:
       - type: bind
-        source: /mnt/data3/haste-server-data
+        source: /store3/haste-server-data
         target: /data
       - type: bind
         source: ./README.md

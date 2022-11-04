@@ -8,3 +8,5 @@ services:
         source: ".env"
         target: "/app/.env"
     restart: always
+    dns:
+      - 8.8.8.8

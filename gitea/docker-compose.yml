@@ -16,8 +16,8 @@ services:
     restart: always
     volumes:
       - ./data:/data
-      - /mnt/data3/gitea-repositories:/data/git/repositories
-      - /mnt/data3/gitea-lfs:/data/git/lfs
+      - /store3/gitea-repositories:/data/git/repositories
+      - /store3/gitea-lfs:/data/git/lfs
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     depends_on:

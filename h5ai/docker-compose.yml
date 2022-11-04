@@ -6,4 +6,4 @@ services:
     restart: always
     container_name: h5ai
     volumes:
-      - /mnt/data3/h5ai:/h5ai
+      - /store3/h5ai:/h5ai
