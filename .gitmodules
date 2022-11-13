@@ -6,4 +6,4 @@
 	url = https://github.com/yude/EPGS-to-Discord-v2.git
 [submodule "mastodon"]
 	path = mastodon
-	url = https://github.com/yudejp/mastodon.git
+	url = https://github.com/yudejp/mastodon-docker.git
