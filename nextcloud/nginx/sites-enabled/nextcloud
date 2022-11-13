@@ -12,7 +12,7 @@ map $arg_v $asset_immutable {
 
 server {
     listen 80;
-    server_name nc.yude.jp 100.102.169.53 alder.yudesleepy.gmail.com.beta.tailscale.net alder;
+    server_name nc.yude.jp 100.102.169.53 services-hiroshima services-hiroshima.yude.jp.beta.tailscale.net alder;
 
     root /var/www/html;
 
@@ -28,7 +28,7 @@ server {
     add_header Strict-Transport-Security "max-age=15768000; includeSubDomains; preload;" always;
 
     # set max upload size and increase upload timeout:
-    client_max_body_size 512M;
+    client_max_body_size 100G;
     client_body_timeout 300s;
     fastcgi_buffers 64 4K;
 
