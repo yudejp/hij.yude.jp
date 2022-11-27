@@ -126,3 +126,7 @@ np2mast/.env
 
 # epgswatch
 epgswatch/.env
+
+# ai
+ai/.env
+ai/data
