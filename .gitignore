@@ -46,6 +46,7 @@ markov-tweet/.env
 misskey/db
 misskey/files
 misskey/redis
+misskey/backup
 
 # MusicBot
 musicbot/data
@@ -105,6 +106,7 @@ mastodon/redis
 mastodon/.env.production
 KonomiTV
 addchan/.env
+mastodon/backup
 
 # Prometheus
 prometheus/data

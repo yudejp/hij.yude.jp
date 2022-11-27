@@ -2,8 +2,7 @@ version: "3"
 
 services:
   web:
-#    build: https://github.com/misskey-dev/misskey.git#12.103.1
-    image: misskey/misskey:12.109.2
+    image: misskey/misskey:12.119.0
     restart: always
     links:
       - db
@@ -24,6 +23,7 @@ services:
     env_file:
       - .config/docker.env
     volumes:
+      - socks:/var/run
       - ./db:/var/lib/postgresql/data
 
   nginx:
@@ -32,3 +32,29 @@ services:
     volumes:
       - ./nginx/misskey.conf:/etc/nginx/conf.d/misskey.conf
     restart: always
+
+  cron-backup:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.crontab
+    volumes:
+      - socks:/var/run
+      - type: bind
+        source: ./backup
+        target: /app/backup
+      - type: bind
+        source: /megasync-admin-yude-jp/misskey.yude.jp
+        target: /app/compressed
+      - type: bind
+        source: ./.config
+        target: /app/.config
+      - type: bind
+        source: ./redis
+        target: /app/redis
+      - type: bind
+        source: ./files
+        target: /app/files
+
+volumes:
+  socks:

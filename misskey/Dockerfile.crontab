@@ -1,0 +1,14 @@
+FROM debian:stable AS runner
+
+RUN apt update && \
+    apt -y install busybox-static rsync postgresql-client zstd && \
+    apt -y clean && apt -y autoclean && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY ./backup.sh /app/
+
+RUN mkdir -p /var/spool/cron/crontabs/ && \
+    echo '0 1 * * * cd /app; sh backup.sh' >> /var/spool/cron/crontabs/root
+
+ENTRYPOINT ["busybox", "crond", "-f", "-L", "/dev/stderr"]
