@@ -28,6 +28,7 @@ services:
       - grafana_default
       - prometheus_default
       - automuteus_default
+      - minio_default
       - internal
   
   cloudflared:
@@ -75,4 +76,6 @@ networks:
   prometheus_default:
     external: true
   automuteus_default:
+    external: true
+  minio_default:
     external: true

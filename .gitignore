@@ -130,3 +130,7 @@ epgswatch/.env
 # ai
 ai/.env
 ai/data
+
+# minio
+minio/data
+minio/.env
