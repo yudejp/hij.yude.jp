@@ -29,6 +29,7 @@ services:
       - prometheus_default
       - automuteus_default
       - minio_default
+      - minecraft_default
       - internal
   
   cloudflared:
@@ -78,4 +79,6 @@ networks:
   automuteus_default:
     external: true
   minio_default:
+    external: true
+  minecraft_default:
     external: true
