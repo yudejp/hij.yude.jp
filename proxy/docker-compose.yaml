@@ -31,6 +31,7 @@ services:
       - minio_default
       - minecraft_default
       - internal
+      - youbine_default
   
   cloudflared:
     image: cloudflare/cloudflared:latest
@@ -81,4 +82,6 @@ networks:
   minio_default:
     external: true
   minecraft_default:
+    external: true
+  youbine_default:
     external: true

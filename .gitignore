@@ -134,3 +134,7 @@ ai/data
 # minio
 minio/data
 minio/.env
+
+# youbine
+youbine/data
+youbine/.env
