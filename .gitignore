@@ -138,3 +138,10 @@ minio/.env
 # youbine
 youbine/data
 youbine/.env
+
+# inubot-discord
+inubot-discord/.env
+inubot-discord/data/tweets.txt
+
+# nostr
+nostr/config.toml

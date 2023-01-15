@@ -13,4 +13,4 @@ services:
       PORT: 8080
       TZ: Asia/Tokyo
       USERS: yude_jp
-    restart: unless-stopped
+    restart: always

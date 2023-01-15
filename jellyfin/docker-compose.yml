@@ -4,8 +4,8 @@ services:
     image: jellyfin/jellyfin
     container_name: jellyfin
     network_mode: "host"
-    devices:
-      - /dev/dri:/dev/dri
+#    devices:
+#      - /dev/dri:/dev/dri
     volumes:
       - ./config:/config
       - cache:/cache
