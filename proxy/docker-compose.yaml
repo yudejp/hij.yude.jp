@@ -12,6 +12,7 @@ services:
         source: "./html"
         target: "/var/www/html"
     networks:
+      - ai_default
       - hiroshima_default
       - h5ai_default
       - f_default
@@ -50,6 +51,8 @@ networks:
   hiroshima_default:
     external: true
   h5ai_default:
+    external: true
+  ai_default:
     external: true
   f_default:
     external: true

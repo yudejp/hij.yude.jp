@@ -33,28 +33,28 @@ services:
       - ./nginx/misskey.conf:/etc/nginx/conf.d/misskey.conf
     restart: always
 
-  cron-backup:
-    restart: always
-    build:
-      context: .
-      dockerfile: Dockerfile.crontab
-    volumes:
-      - socks:/var/run
-      - type: bind
-        source: ./backup
-        target: /app/backup
-      - type: bind
-        source: /megasync-admin-yude-jp/misskey.yude.jp
-        target: /app/compressed
-      - type: bind
-        source: ./.config
-        target: /app/.config
-      - type: bind
-        source: ./redis
-        target: /app/redis
-      - type: bind
-        source: ./files
-        target: /app/files
+#  cron-backup:
+#    restart: always
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.crontab
+#    volumes:
+#      - socks:/var/run
+#      - type: bind
+#        source: ./backup
+#        target: /app/backup
+#      - type: bind
+#        source: /megasync-admin-yude-jp/misskey.yude.jp
+#        target: /app/compressed
+#      - type: bind
+#        source: ./.config
+#        target: /app/.config
+#      - type: bind
+#        source: ./redis
+#        target: /app/redis
+#      - type: bind
+#        source: ./files
+#        target: /app/files
 
 volumes:
   socks:

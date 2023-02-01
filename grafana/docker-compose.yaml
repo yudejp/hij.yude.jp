@@ -4,7 +4,7 @@ services:
   grafana:
     image: grafana/grafana-oss:latest
     container_name: grafana
-    restart: unless-stopped
+    restart: always
     volumes:
       - ./data:/var/lib/grafana
       - type: bind
