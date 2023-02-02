@@ -110,8 +110,6 @@
                 return res_to.json();
             })
             .then(function (res_json_to) {
-                console.log(res_json_to)
-
                 fetch(traffic_in_hiroshima_from, { method: 'GET' })
                     .then(function (res_from) {
                         return res_from.json();
