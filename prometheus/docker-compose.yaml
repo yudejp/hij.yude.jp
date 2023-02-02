@@ -1,7 +1,7 @@
 version: '3.8'
 
 volumes:
-  prometheus_data: {}
+  prometheus_data:
 
 services:
   node-exporter:
@@ -26,16 +26,20 @@ services:
     restart: unless-stopped
     user: "1000"
     volumes:
-      - ./config:/etc/prometheus
-      - ./data:/prometheus
+      - ./prometheus/config:/etc/prometheus
+      - ./prometheus/data:/prometheus/data
     command:
       - "--config.file=/etc/prometheus/prometheus.yaml"
     expose:
       - 9090
 
-  switchbot-exporter:
-    image: ghcr.io/yude/switchbot-exporter:master
-    container_name: switchbot-exporter
-    hostname: switchbot-exporter
-    restart: unless-stopped
-    env_file: .env
+  snmp-exporter:
+    user: root
+    image: prom/snmp-exporter:latest
+    volumes:
+      - ./snmp-exporter:/etc/snmp_exporter
+    command:
+      - "--config.file=/etc/snmp_exporter/snmp.yml"
+    restart: always
+    ports:
+      - 9116:9116

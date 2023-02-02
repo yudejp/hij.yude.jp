@@ -145,3 +145,7 @@ inubot-discord/data/tweets.txt
 
 # nostr
 nostr/config.toml
+
+# prometheus
+prometheus/prometheus/data
+prometheus/snmp-exporter/mibs

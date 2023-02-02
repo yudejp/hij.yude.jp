@@ -1,9 +1,0 @@
-version: '3'
-services:
-    app:
-        restart: always
-        image: ghcr.io/yuderobot/markov-toot:master
-        volumes:
-          - "./data:/app/data"
-        env_file:
-          - .env
