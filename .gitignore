@@ -4,26 +4,6 @@ automuteus/logs
 automuteus/redis
 automuteus/.env
 
-# dtv
-## EPGStation
-dtv/epgstation/data
-dtv/epgstation/logs
-dtv/epgstation/thumbnail
-## Mirakurun
-dtv/mirakc/epg
-## MySQL
-dtv/mysql
-
-# epgbird
-epgbird/.env
-
-# FreePBX
-freepbx/certs
-freepbx/data
-freepbx/db
-freepbx/dbbackup
-freepbx/logs
-
 # Gitea
 gitea/data
 
@@ -34,51 +14,18 @@ h5ai/.github
 markov-note/data
 markov-note/.env
 
-# markov-toot
-markov-toot/data
-markov-toot/.env
-
-# markov-tweet
-markov-tweet/data
-markov-tweet/.env
-
-# Misskey
-misskey/db
-misskey/files
-misskey/redis
-misskey/backup
-
-# MusicBot
-musicbot/data
-
 # Nextcloud
 nextcloud/data
 
 # Portainer
 portainer/data
 
-# replyman
-replyman/.env
-
-# Roundcube
-roundcube/db
-
 # ShadowbanAlerts
 shadowbanalerts/.env
 shadowbanalerts/ShadowbanAlerts.json
 
-# yude-vs-robot
-yude-vs-robot/data
-yude-vs-robot/.env
-
 # switchbot-discord
 switchbot-discord/.env
-
-# GitLab
-gitlab/data/config/gitlab-secrets.json
-gitlab/data/config/initial_root_password
-gitlab/data/config/ssh_*
-gitlab/data/config/gitlab.rb
 
 # Misc
 *.log
@@ -99,15 +46,6 @@ hvcan/pleroma/volumes
 hvcan/pleroma/.env
 hvcan/pleroma/environments/pleroma/pleroma.env
 
-# Mastodon
-mastodon/postgres
-mastodon/public
-mastodon/redis
-mastodon/.env.production
-KonomiTV
-addchan/.env
-mastodon/backup
-
 # Prometheus
 prometheus/data
 prometheus/.env
@@ -124,16 +62,9 @@ np2bio/.env
 # np2mast
 np2mast/.env
 
-# epgswatch
-epgswatch/.env
-
 # ai
 ai/.env
 ai/data
-
-# minio
-minio/data
-minio/.env
 
 # youbine
 youbine/data
@@ -142,9 +73,6 @@ youbine/.env
 # inubot-discord
 inubot-discord/.env
 inubot-discord/data/tweets.txt
-
-# nostr
-nostr/config.toml
 
 # prometheus
 prometheus/prometheus/data
