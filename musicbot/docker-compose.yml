@@ -1,7 +1,0 @@
-version: '3'
-services:
-  app:
-    restart: always
-    image: ghcr.io/yude/musicbot:master
-    volumes:
-     - "./data:/app"

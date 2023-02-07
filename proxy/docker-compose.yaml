@@ -12,10 +12,8 @@ services:
         source: "./html"
         target: "/var/www/html"
     networks:
-      - ai_default
       - hiroshima_default
       - h5ai_default
-      - f_default
       - portainer_default
       - wbo_default
       - gitea_default
@@ -23,16 +21,11 @@ services:
       - misskey_default
       - nextcloud_default
       - overleaf_default
-      - tt-rss_default
       - shlink_default
-      - roundcube_default
       - grafana_default
       - prometheus_default
-      - automuteus_default
-      - minio_default
       - minecraft_default
       - internal
-      - youbine_default
   
   cloudflared:
     image: cloudflare/cloudflared:latest
@@ -52,10 +45,6 @@ networks:
     external: true
   h5ai_default:
     external: true
-  ai_default:
-    external: true
-  f_default:
-    external: true
   portainer_default:
     external: true
   wbo_default:
@@ -70,21 +59,11 @@ networks:
     external: true
   overleaf_default:
     external: true
-  tt-rss_default:
-    external: true
   shlink_default:
-    external: true
-  roundcube_default:
     external: true
   grafana_default:
     external: true
   prometheus_default:
     external: true
-  automuteus_default:
-    external: true
-  minio_default:
-    external: true
   minecraft_default:
-    external: true
-  youbine_default:
     external: true
