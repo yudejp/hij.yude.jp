@@ -17,11 +17,8 @@ services:
       - portainer_default
       - wbo_default
       - gitea_default
-      - mastodon_default
-      - misskey_default
       - nextcloud_default
       - overleaf_default
-      - shlink_default
       - grafana_default
       - prometheus_default
       - minecraft_default
@@ -51,15 +48,9 @@ networks:
     external: true
   gitea_default:
     external: true
-  mastodon_default:
-    external: true
-  misskey_default:
-    external: true
   nextcloud_default:
     external: true
   overleaf_default:
-    external: true
-  shlink_default:
     external: true
   grafana_default:
     external: true

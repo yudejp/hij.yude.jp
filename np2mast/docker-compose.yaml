@@ -1,9 +1,0 @@
-version: '3.9'
-
-services:
-  app:
-    image: ghcr.io/yude/np2mast:master
-    env_file: .env
-    volumes:
-      - ./.env:/bin/.env
-    restart: unless-stopped
