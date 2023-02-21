@@ -77,3 +77,6 @@ inubot-discord/data/tweets.txt
 # prometheus
 prometheus/prometheus/data
 prometheus/snmp-exporter/mibs
+
+# navidrome
+navidrome/data
