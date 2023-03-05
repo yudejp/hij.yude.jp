@@ -17,10 +17,14 @@
     </style>
 </head>
 
-<body style="max-width: 500px; margin-left: auto; margin-right: auto">
+<body style="margin-left: 10px; margin-right: 10px">
+    <div style="max-width: 800px; margin-left: auto; margin-right: auto">
     <h1>hiroshima.yude.jp</h1>
     <p>このページは、広島県 広島市 に設置された <a href="https://www.yude.jp/profile">yude</a> の自宅サーバーから配信されています。</p>
-    <p id="todays_traffic"></p>
+    <hr>
+        <h2>master</h2>
+        <iframe src="https://app.datadoghq.com/graph/embed?token=bb8f29ab127a0e20f0efb17baca9b84a51061fe3c00de2083c85cfa9da32f6e9&height=300&width=600&legend=true" width="600" height="300" frameborder="0"></iframe>
+    <hr>
     <table rules="all">
         <tr>
             <th>ホスト名</th>
@@ -67,45 +71,7 @@
             <td>KonomiTV, EPGStation / EDCB 対応 DVR 視聴管理インフラストラクチャ</td>
         </tr>
     </table>
-    <script async>
-        function formatBytes(bytes, decimals = 2) {
-            if (!+bytes) return '0 バイト'
-
-            const k = 1024
-            const dm = decimals < 0 ? 0 : decimals
-            const sizes = ['バイト', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-
-            const i = Math.floor(Math.log(bytes) / Math.log(k))
-
-            return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
-        }
-
-        let now = new Date();
-
-        let traffic_in_hiroshima_from = 'https://prometheus.yude.jp/api/v1/query?query={__name__=~"ifHCInOctets|ifHCOutOctets",instance="192.168.100.1",ifAlias="WAN1"}&time=' + new Date(now.getFullYear(), now.getMonth() + 1, now.getDate(), 0, 0, 0).getTime() / 1000
-        let traffic_in_hiroshima_to = 'https://prometheus.yude.jp/api/v1/query?query={__name__=~"ifHCInOctets|ifHCOutOctets",instance="192.168.100.1",ifAlias="WAN1"}&time=' + now.getTime() / 1000;
-
-        fetch(traffic_in_hiroshima_to, { method: 'GET' })
-            .then(function (res_to) {
-                return res_to.json();
-            })
-            .then(function (res_json_to) {
-                fetch(traffic_in_hiroshima_from, { method: 'GET' })
-                    .then(function (res_from) {
-                        return res_from.json();
-                    })
-                    .then(function (res_json_from) {
-                        let traffic_hiroshima_from_numeric = 0;
-                        let traffic_hiroshima_to_numeric = parseInt(res_json_to["data"]["result"][0]["value"][1]) + parseInt(res_json_to["data"]["result"][1]["value"][1])
-                        try {
-                            traffic_hiroshima_from_numeric = parseInt(res_json_from["data"]["result"][0]["value"][1]) + parseInt(res_json_from["data"]["result"][1]["value"][1])
-                        } catch {}
-
-                        let target_element = document.getElementById("todays_traffic");
-                        target_element.innerHTML = "今日の通信量は " + formatBytes(traffic_hiroshima_to_numeric - traffic_hiroshima_from_numeric) + " です。"
-                    })
-            })
-    </script>
+</div>
 </body>
 
 </html>
