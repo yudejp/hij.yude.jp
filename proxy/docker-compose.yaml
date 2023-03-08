@@ -12,10 +12,7 @@ services:
         source: "./html"
         target: "/var/www/html"
     networks:
-      - hiroshima_default
       - h5ai_default
-      - portainer_default
-      - wbo_default
       - gitea_default
       - nextcloud_default
       - overleaf_default
@@ -38,13 +35,7 @@ services:
 
 networks:
   internal:
-  hiroshima_default:
-    external: true
   h5ai_default:
-    external: true
-  portainer_default:
-    external: true
-  wbo_default:
     external: true
   gitea_default:
     external: true
