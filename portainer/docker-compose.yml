@@ -1,8 +1,0 @@
-services:
-  portainer:
-    image: portainer/portainer-ce:latest
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./data:/data
-    restart: unless-stopped
-    container_name: portainer

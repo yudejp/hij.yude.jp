@@ -1,9 +1,0 @@
-version: '3.9'
-
-services:
-  h5ai:
-    image: yude/h5ai
-    restart: always
-    container_name: h5ai
-    volumes:
-      - /store3/h5ai:/h5ai
