@@ -80,3 +80,7 @@ prometheus/snmp-exporter/mibs
 
 # navidrome
 navidrome/data
+
+# KonomiTV
+konomitv/cap
+konomitv/data

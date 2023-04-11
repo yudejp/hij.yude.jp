@@ -10,7 +10,7 @@
         # EDCB (EpgTimerNW) の TCP API の URL
         # バックエンドに EDCB を選択したときに利用されます。
         # tcp://edcb-namedpipe/ と指定すると、TCP API の代わりに名前付きパイプを使って通信します (ローカルのみ)。
-        'edcb_url': 'tcp://dev.yude.jp.beta.tailscale.net:4510/',
+        'edcb_url': 'tcp://100.78.117.30:4510/',
 
         # Mirakurun の HTTP API の URL
         # バックエンドに Mirakurun を選択したときに利用されます。
@@ -77,7 +77,7 @@
         # クライアントの [キャプチャの保存先] 設定で [KonomiTV サーバーにアップロード] または
         # [ブラウザでのダウンロードと、KonomiTV サーバーへのアップロードを両方行う] を選択したときに利用されます。
         # Docker でインストールした場合も、ホストマシン側のフォルダの絶対パスを指定してください。
-        'upload_folder': 'E:\TV-Capture',
+        'upload_folder': '/cap',
     },
 
     # Twitter 連携の設定

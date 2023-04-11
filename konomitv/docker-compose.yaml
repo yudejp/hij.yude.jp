@@ -17,14 +17,17 @@ services:
         source: './config.yaml'
         target: '/code/config.yaml'
       - type: bind
-        source: './server/data/'
+        source: './data/'
         target: '/code/server/data/'
       - type: bind
-        source: './server/logs/'
-        target: '/code/server/logs/'
-      - type: bind
-        source: '/'
-        target: '/host-rootfs/'
+        source: './cap/'
+        target: '/host-rootfs/cap'
+      # - type: bind
+      #   source: './server/logs/'
+      #   target: '/code/server/logs/'
+      # - type: bind
+      #   source: '/'
+      #   target: '/host-rootfs/'
 
     # ==================== ↓↓↓↓↓ ここからユーザー設定 ↓↓↓↓↓ ====================
 
