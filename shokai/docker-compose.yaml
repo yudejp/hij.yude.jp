@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  app:
+    container_name: shokai
+    image: ghcr.io/yude/shokai:main
+    volumes:
+      - type: bind
+        source: ./config.toml
+        target: /app/config.toml
+    restart: always
+  
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    user: root
+    restart: unless-stopped
+    command: tunnel --url http://app:3000 --no-chunked-encoding run hij.yude.jp
+    volumes:
+      - '/root/.cloudflared:/root/.cloudflared'

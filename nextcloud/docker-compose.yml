@@ -5,7 +5,7 @@ services:
     image: postgres:13.5-alpine
     restart: always
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - /store3/nc.soine.site/data/db:/var/lib/postgresql/data
     env_file:
       - db.env
 
@@ -19,7 +19,7 @@ services:
     ports:
       - "9000:80"
     volumes:
-      - ./data/html:/var/www/html
+      - /store3/nc.soine.site/data/html:/var/www/html
       - /store1:/storage/store1
       - /store2:/storage/store2
       - /store3:/storage/store3
@@ -61,8 +61,16 @@ services:
     image: nextcloud:apache
     restart: always
     volumes:
-      - ./data/html:/var/www/html
+      - /store3/nc.soine.site/data/html:/var/www/html
     entrypoint: /cron.sh
     depends_on:
       - db
       - redis
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    user: root
+    restart: unless-stopped
+    command: tunnel --url http://web --no-chunked-encoding run nc.soine.site
+    volumes:
+      - '/root/.cloudflared:/root/.cloudflared'

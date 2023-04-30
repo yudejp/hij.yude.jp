@@ -1,0 +1,11 @@
+[general]
+    location_id = "HIJ"
+    location_pretty = "Hiroshima, Japan"
+    domain = "hij.yude.jp"
+
+[http]
+    destinations = [
+        "https://www.google.co.jp",
+        "https://ttj.yude.jp",
+        "https://hnd.yude.jp"
+    ]

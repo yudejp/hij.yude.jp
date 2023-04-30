@@ -12,7 +12,7 @@ map $arg_v $asset_immutable {
 
 server {
     listen 80;
-    server_name nc.yude.jp 100.102.169.53 services-hiroshima services-hiroshima.yude.jp.beta.tailscale.net alder;
+    server_name services-hiroshima.tail5b1c5.ts.net nc.soine.site 100.102.169.53 services-hiroshima services-hiroshima.yude.jp.beta.tailscale.net;
 
     root /var/www/html;
 
@@ -31,6 +31,7 @@ server {
     client_max_body_size 100G;
     client_body_timeout 300s;
     fastcgi_buffers 64 4K;
+    limit_rate_after 2500k;
 
     # Enable gzip but do not remove ETag headers
     gzip on;
