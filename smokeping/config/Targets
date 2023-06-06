@@ -1,0 +1,32 @@
+*** Targets ***
+
+probe = FPing
+
+menu = Top
+title = SmokePing @ yude.jp (Hiroshima, Japan)
+remark = https://hij.yude.jp
+
++ Destinations
+
+menu = Destinations
+title = Destinations
+
+++ CloudflareDNS
+menu = 1.1.1.1
+title = 1.1.1.1
+host = 1.1.1.1
+
+++ GoogleDNS
+menu = 8.8.8.8
+title = 8.8.8.8
+host = 8.8.8.8
+
+++ GoogleJP
+menu = Google (www.google.co.jp)
+title = Google (www.google.co.jp)
+host = www.google.co.jp
+
+++ IIJ
+menu = IIJ (www.iij.ad.jp)
+title = IIJ (www.iij.ad.jp)
+host = www.iij.ad.jp

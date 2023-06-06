@@ -1,0 +1,22 @@
+---
+version: "3"
+services:
+  smokeping:
+    container_name: smokeping-hij
+    image: lscr.io/linuxserver/smokeping:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Tokyo
+    volumes:
+      - ./config:/config
+      - ./data:/data
+    restart: always
+  
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    user: root
+    restart: unless-stopped
+    command: tunnel --url http://smokeping --no-chunked-encoding run smokeping-hij.yude.jp
+    volumes:
+      - '/root/.cloudflared:/root/.cloudflared'
