@@ -87,3 +87,6 @@ konomitv/data
 
 # smokeping
 smokeping/data
+
+# Credentials
+*.env*

@@ -70,7 +70,5 @@ services:
   cloudflared:
     image: cloudflare/cloudflared:latest
     user: root
-    restart: unless-stopped
-    command: tunnel --url http://web --no-chunked-encoding run nc.soine.site
-    volumes:
-      - '/root/.cloudflared:/root/.cloudflared'
+    restart: always
+    command: tunnel --no-autoupdate run --token $CLOUDFLARED_TOKEN

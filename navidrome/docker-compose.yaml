@@ -14,3 +14,9 @@ services:
     volumes:
       - "./data:/data"
       - "/store3/music:/music:ro"
+  
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    user: root
+    restart: always
+    command: tunnel --no-autoupdate run --token $CLOUDFLARED_TOKEN
