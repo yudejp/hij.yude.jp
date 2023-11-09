@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  vpnclient:
+    image: ghcr.io/yude/docker-softether-vpn-client:master
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./supervisord.conf:/etc/supervisord.conf
+      - ./check-connection.bash:/usr/local/bin/check-connection.bash
+      - ./set-ip-address.bash:/usr/local/bin/set-ip-address.bash
+    env_file:
+      - ./.env
+    restart: always
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/check-connection.bash"]
+      timeout: 20s
+      retries: 10
+
+  caddy:
+    image: caddy
+    restart: always
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      vpnclient:
+        condition: service_healthy
+    env_file:
+      - .env
+    network_mode: "service:vpnclient"
+    volumes:
+      - ./caddy/html:/usr/share/caddy
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
