@@ -15,7 +15,7 @@ services:
       - /store3/nsfw/iwara:/media-nsfw-iwara
       - /store3/nsfw/asmr/DLsite:/media-nsfw-asmr
       - /store3/music:/media-music
-    restart: "unless-stopped"
+    restart: always
 
 volumes:
   cache:
