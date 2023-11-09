@@ -5,7 +5,7 @@ services:
     image: postgres:13.5-alpine
     restart: always
     volumes:
-      - /store3/nc.soine.site/data/db:/var/lib/postgresql/data
+      - /store3/nc.yude.jp/data/db:/var/lib/postgresql/data
     env_file:
       - db.env
 
@@ -19,7 +19,7 @@ services:
     ports:
       - "9000:80"
     volumes:
-      - /store3/nc.soine.site/data/html:/var/www/html
+      - /store3/nc.yude.jp/data/html:/var/www/html
       - /store1:/storage/store1
       - /store2:/storage/store2
       - /store3:/storage/store3
@@ -57,11 +57,12 @@ services:
       - app
     depends_on:
       - app
+  
   cron:
     image: nextcloud:apache
     restart: always
     volumes:
-      - /store3/nc.soine.site/data/html:/var/www/html
+      - /store3/nc.yude.jp/data/html:/var/www/html
     entrypoint: /cron.sh
     depends_on:
       - db
