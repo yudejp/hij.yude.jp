@@ -90,3 +90,6 @@ smokeping/data
 
 # Credentials
 *.env*
+
+# homebridge
+homebridge/data
