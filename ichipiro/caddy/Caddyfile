@@ -4,4 +4,6 @@
     file_server {
         browse
     }
+
+    reverse_proxy /freepbx/* localhost:4080
 }

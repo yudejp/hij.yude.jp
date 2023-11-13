@@ -1,0 +1,6 @@
+auto lo
+iface lo inet loopback
+
+auto vpn_vpn
+iface vpn_vpn inet static
+    address 192.168.31.2/22

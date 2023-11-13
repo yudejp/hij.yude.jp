@@ -5,7 +5,7 @@
 
 FILE=/var/vpn-connected
 
-sleep 5
+sleep 10
 
 if test -f "$FILE"; then
     echo "OK"

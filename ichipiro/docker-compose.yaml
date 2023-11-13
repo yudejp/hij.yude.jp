@@ -1,36 +1,55 @@
 version: "3"
 
 services:
-  vpnclient:
-    image: ghcr.io/yude/docker-softether-vpn-client:master
+  softether:
+    hostname: softether
+    # image: ghcr.io/yude/docker-softether-vpn-client:master
+    build:
+      context: softether
+      dockerfile: ./Dockerfile
     extra_hosts:
       - "host.docker.internal:host-gateway"
     privileged: true
     cap_add:
       - NET_ADMIN
     volumes:
-      - ./supervisord.conf:/etc/supervisord.conf
-      - ./check-connection.bash:/usr/local/bin/check-connection.bash
-      - ./set-ip-address.bash:/usr/local/bin/set-ip-address.bash
+      - ./softether/interfaces:/etc/network/interfaces
+      - ./softether/supervisord.conf:/etc/supervisord.conf
     env_file:
-      - ./.env
+      - softether/.env
     restart: always
-    healthcheck:
-      test: ["CMD", "/usr/local/bin/check-connection.bash"]
-      timeout: 20s
-      retries: 10
 
   caddy:
     image: caddy
     restart: always
-    cap_add:
-      - NET_ADMIN
+    environment:
+      - TZ=Asia/Tokyo
+    network_mode: "service:softether"
     depends_on:
-      vpnclient:
-        condition: service_healthy
-    env_file:
-      - .env
-    network_mode: "service:vpnclient"
+      - softether
     volumes:
       - ./caddy/html:/usr/share/caddy
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+
+  nichijid-rs:
+    image: ghcr.io/yude/nichijid-rs:latest
+    restart: always
+    environment:
+      - TZ=Asia/Tokyo
+    network_mode: "service:softether"
+    depends_on:
+      - softether
+
+  freepbx:
+    image: tiredofit/freepbx:latest
+    restart: always
+    environment:
+      - TZ=Asia/Tokyo
+      - ENABLE_FAIL2BAN=FALSE
+      - HTTP_PORT=4080
+      - HTTPS_PORT=40443
+    network_mode: "service:softether"
+    depends_on:
+      - softether
+    volumes:
+      - ./freepbx/data:/data
