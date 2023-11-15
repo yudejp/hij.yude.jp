@@ -7,26 +7,34 @@ services:
     build:
       context: softether
       dockerfile: ./Dockerfile
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     privileged: true
     cap_add:
       - NET_ADMIN
     volumes:
       - ./softether/interfaces:/etc/network/interfaces
       - ./softether/supervisord.conf:/etc/supervisord.conf
+      - ./softether/wait-ping.bash:/usr/local/bin/wait-ping.bash
     env_file:
       - softether/.env
+    healthcheck:
+      test: "/bin/bash /usr/local/bin/wait-ping.bash"
+      interval: 10s
+      timeout: 10s
+      retries: 3
     restart: always
 
   caddy:
     image: caddy
     restart: always
+    privileged: true
+    cap_add:
+      - NET_ADMIN
     environment:
       - TZ=Asia/Tokyo
-    network_mode: "service:softether"
+    network_mode: service:softether
     depends_on:
-      - softether
+      softether:
+        condition: service_healthy
     volumes:
       - ./caddy/html:/usr/share/caddy
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
@@ -34,22 +42,56 @@ services:
   nichijid-rs:
     image: ghcr.io/yude/nichijid-rs:latest
     restart: always
+    privileged: true
+    cap_add:
+      - NET_ADMIN
     environment:
       - TZ=Asia/Tokyo
     network_mode: "service:softether"
     depends_on:
-      - softether
+      softether:
+        condition: service_healthy
 
   freepbx:
     image: tiredofit/freepbx:latest
     restart: always
+    privileged: true
+    cap_add:
+      - NET_ADMIN
     environment:
       - TZ=Asia/Tokyo
       - ENABLE_FAIL2BAN=FALSE
       - HTTP_PORT=4080
       - HTTPS_PORT=40443
-    network_mode: "service:softether"
+    network_mode: service:softether
     depends_on:
-      - softether
+      softether:
+        condition: service_healthy
     volumes:
       - ./freepbx/data:/data
+  
+  haproxy:
+    image: haproxy
+    restart: always
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    network_mode: service:softether
+    depends_on:
+      softether:
+        condition: service_healthy
+    volumes:
+      - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+
+  cloud-shell:
+    image: ghcr.io/yude/cloud-shell
+    restart: always
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    build:
+      context: cloud-shell
+      dockerfile: Dockerfile
+    depends_on:
+      softether:
+        condition: service_healthy
