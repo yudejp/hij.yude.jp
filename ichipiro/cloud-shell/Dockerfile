@@ -1,5 +1,7 @@
 FROM ubuntu:22.04 as runner
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Install base packages
 RUN apt -y update; apt -y upgrade
 RUN apt -y install openssh-server build-essential curl supervisor nano vim iputils-ping neofetch git ipython3

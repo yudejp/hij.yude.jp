@@ -19,10 +19,9 @@ services:
     ports:
       - "9000:80"
     volumes:
-      - /store3/nc.yude.jp/data/html:/var/www/html
-      - /store1:/storage/store1
-      - /store2:/storage/store2
-      - /store3:/storage/store3
+      - /mnt/store3/nc.yude.jp/data/html:/var/www/html
+      - /mnt/store1:/storage/store1
+      - /mnt/store3:/storage/store3
     environment:
       - POSTGRES_HOST=db
       - REDIS_HOST=redis
@@ -62,7 +61,7 @@ services:
     image: nextcloud:apache
     restart: always
     volumes:
-      - /store3/nc.yude.jp/data/html:/var/www/html
+      - /mnt/store3/nc.yude.jp/data/html:/var/www/html
     entrypoint: /cron.sh
     depends_on:
       - db

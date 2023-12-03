@@ -8,13 +8,13 @@ services:
     environment:
       # Optional: put your config options customization here. Examples:
       ND_SCANSCHEDULE: 1h
-      ND_LOGLEVEL: info  
+      ND_LOGLEVEL: info
       ND_SESSIONTIMEOUT: 24h
       ND_BASEURL: ""
     volumes:
       - "./data:/data"
-      - "/store3/music:/music:ro"
-  
+      - "/mnt/store3/music:/music:ro"
+
   cloudflared:
     image: cloudflare/cloudflared:latest
     user: root
