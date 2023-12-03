@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  samba:
+    image: ghcr.io/servercontainers/samba
+    restart: always
+    network_mode: host
+    cap_add:
+      - CAP_NET_ADMIN
+    environment:
+      MODEL: 'TimeCapsule'
+      AVAHI_NAME: maple
+      SAMBA_CONF_LOG_LEVEL: 3
+      GROUP_family: 1500
+
+      ACCOUNT_yude: "yude:1000:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:75B5E60B60201238F407C266B02C5E2B:[U          ]:LCT-656C60C7:"
+      UID_foo: 1000
+      GROUPS_foo: family
+
+      SAMBA_VOLUME_CONFIG_store1: "[store1]; path=/mnt/store1; valid users = yude; guest ok = no; read only = no; browseable = yes; force group = family"
+      SAMBA_VOLUME_CONFIG_store3: "[store3]; path=/mnt/store3; valid users = yude; guest ok = no; read only = no; browseable = yes; force group = family"
+    volumes:
+      - /etc/avahi/services/:/external/avahi
+      - /mnt/store1:/mnt/store1
+      - /mnt/store3:/mnt/store3
