@@ -3,6 +3,7 @@
 
     file_server {
         browse
+        hide .git
     }
 
     reverse_proxy /freepbx/* localhost:4080

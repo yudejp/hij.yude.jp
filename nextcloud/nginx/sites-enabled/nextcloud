@@ -11,8 +11,7 @@ map $arg_v $asset_immutable {
 
 
 server {
-    listen 80;
-    server_name services-hiroshima.tail5b1c5.ts.net nc.yude.jp 100.102.169.53 services-hiroshima services-hiroshima.yude.jp.beta.tailscale.net;
+    listen 80 default_server;
 
     root /var/www/html;
 

@@ -1,0 +1,144 @@
+services:
+  mirakc:
+    # My custom build
+    image: ghcr.io/yude/mirakc:main
+    # Official build
+    # image: docker.io/mirakc/mirakc:alpine
+    container_name: mirakc
+    init: true
+    restart: unless-stopped
+    devices:
+      - /dev/isdb6014video0
+      - /dev/isdb6014video1
+      - /dev/isdb6014video2
+      - /dev/isdb6014video3
+      - /dev/dvb
+      - /dev/bus
+    ports:
+      - 40772:40772
+    volumes:
+      - mirakc-epg:/var/lib/mirakc/epg
+      - ./mirakc/config.yml:/etc/mirakc/config.yml:ro
+      - miraview-html:/var/www/miraview:ro
+      - mirakc-sock:/var/run
+    environment:
+      RUST_LOG: info,mirakc=debug
+      TZ: Asia/Tokyo
+      MIRAKC_ARIB_LOG: info
+      MIRAKC_ARIB_NO_TIMESTAMP: 1
+      MIRAKC_DEBUG_CHILD_PROCESS: 1
+    cap_add:
+      - SYS_ADMIN
+    privileged: true
+
+  miraview:
+    image: docker.io/mirakc/mirakc:alpine
+    container_name: miraview-loader
+    restart: "no"
+    volumes:
+      - miraview-html:/var/www/miraview
+    working_dir: /var/www/miraview
+    environment:
+      MIRAVIEW_VERSION: v0.1.1
+    entrypoint: ash
+    command: -c "curl -L https://github.com/maeda577/miraview/releases/download/$$MIRAVIEW_VERSION/build.tar.gz | tar -zxvf -"
+
+  b25:
+    restart: unless-stopped
+    build:
+      context: b25
+    container_name: b25
+    hostname: b25
+    ports:
+      - 40773:40773
+    environment:
+      B25_BCAS_SERVER: bcas:40774
+      TZ: Asia/Tokyo
+    depends_on:
+      - bcas
+
+  bcas:
+    restart: unless-stopped
+    build:
+      context: bcas
+    container_name: bcas
+    hostname: bcas
+    devices:
+      - /dev/bus/usb
+    ports:
+      - 40774:40774
+    environment:
+      BCAS_DEBUG: 1
+      TZ: Asia/Tokyo
+  
+  konomitv:
+    image: ghcr.io/tsukumijima/konomitv:v0.9.0
+    restart: always
+    network_mode: host
+    volumes:
+      - type: bind
+        source: './konomitv/config.yaml'
+        target: '/code/config.yaml'
+      - type: bind
+        source: './konomitv/data/'
+        target: '/code/server/data/'
+      - type: bind
+        source: './konomitv/cap/'
+        target: '/host-rootfs/cap'
+    devices:
+      - '/dev/dri/:/dev/dri/'
+
+  mysql:
+    image: mariadb:10.5
+    # image: mysql:8.0 # 囲み文字を使用する場合
+    volumes:
+        - mysql-db:/var/lib/mysql
+    environment:
+        MYSQL_USER: epgstation
+        MYSQL_PASSWORD: epgstation
+        MYSQL_ROOT_PASSWORD: epgstation
+        MYSQL_DATABASE: epgstation
+        TZ: "Asia/Tokyo"
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --performance-schema=false --expire_logs_days=1 # for mariadb
+    # command: --character-set-server=utf8mb4 --collation-server=utf8mb4_0900_as_ci --performance-schema=false --expire_logs_days=1 --default-authentication-plugin=mysql_native_password # for myql
+    restart: always
+    logging:
+        options:
+            max-size: "10m"
+            max-file: "3"
+
+  epgstation:
+    build:
+      context: epgstation
+      dockerfile: Dockerfile
+    volumes:
+      - ./epgstation/config:/app/config
+      - ./epgstation/data:/app/data
+      - ./epgstation/thumbnail:/app/thumbnail
+      - ./epgstation/logs:/app/logs
+      - ./epgs-to-discord/config.toml:/root/.config/epgs-to-discord/config.toml
+      - /mnt/prod/recorded:/app/recorded
+      - mirakc-sock:/var/run
+    environment:
+        TZ: "Asia/Tokyo"
+    depends_on:
+      - mirakc
+      - mysql
+    ports:
+      - "8888:8888"
+      - "8889:8889"
+    devices:
+      - /dev/dri:/dev/dri
+    restart: always
+
+volumes:
+  mysql-db:
+      driver: local
+  mirakc-epg:
+    name: mirakc_epg
+    driver: local
+  miraview-html:
+    name: miraview_html
+    driver: local
+  mirakc-sock:
+    name: mirakc_sock

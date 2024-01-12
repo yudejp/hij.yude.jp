@@ -1,0 +1,91 @@
+timeshift:
+  recorders:
+
+epg:
+  cache-dir: /var/lib/mirakc/epg
+
+server:
+  addrs:
+    - http: 0.0.0.0:40772
+    - unix: /var/run/mirakc.sock
+  mounts:
+    /miraview:
+      path: /var/www/miraview
+      index: index.html
+
+channels:
+  - name: NHK 総合
+    type: GR
+    channel: 14
+  - name: NHK Eテレ
+    type: GR
+    channel: 15
+  - name: 中国放送
+    type: GR
+    channel: 18
+  - name: 広島テレビ
+    type: GR
+    channel: 19
+  - name: 広島ホームテレビ
+    type: GR
+    channel: 22
+  - name: テレビ新広島
+    type: GR
+    channel: 23
+  - name: BS1
+    type: BS
+    channel: BS15_0
+  - name: BSプレミアム
+    type: BS
+    channel: BS03_1
+  - name: BS日テレ
+    type: BS
+    channel: BS13_0
+  - name: BS朝日
+    type: BS
+    channel: BS01_0
+  - name: BS-TBS
+    type: BS
+    channel: BS01_1
+  - name: BSテレ東
+    type: BS
+    channel: BS01_2
+  - name: BSフジ
+    type: BS
+    channel: BS13_1
+  - name: BS11
+    type: BS
+    channel: BS09_0
+  - name: BS12
+    type: BS
+    channel: BS09_2
+
+tuners:
+  - name: PX-ST0
+    types: [GR,BS,CS]
+    command: >-
+      recpt1 --dev /dev/isdb6014video0 {{channel}} {{duration}} -
+    disabled: false
+
+  - name: PX-ST1
+    types: [GR,BS,CS]
+    command: >-
+      recpt1 --dev /dev/isdb6014video1 {{channel}} {{duration}} -
+    disabled: false
+
+  - name: PX-ST2
+    types: [GR,BS,CS]
+    command: >-
+      recpt1 --dev /dev/isdb6014video2 {{channel}} {{duration}} -
+    disabled: false
+
+  - name: PX-ST3
+    types: [GR,BS,CS]
+    command: >-
+      recpt1 --dev /dev/isdb6014video3 {{channel}} {{duration}} -
+    disabled: false
+
+filters:
+    decode-filter:
+        command: >-
+            socat - tcp-connect:b25:40773

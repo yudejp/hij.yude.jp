@@ -15,6 +15,7 @@ services:
       - /mnt/store3/nsfw/iwara:/media-nsfw-iwara
       - /mnt/store3/nsfw/asmr/DLsite:/media-nsfw-asmr
       - /mnt/store3/music:/media-music
+      - /mnt/prod/recorded:/media-recorded
     restart: always
 
 volumes:

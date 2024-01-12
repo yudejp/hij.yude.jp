@@ -5,7 +5,7 @@ services:
     image: postgres:13.5-alpine
     restart: always
     volumes:
-      - /store3/nc.yude.jp/data/db:/var/lib/postgresql/data
+      - /mnt/store3/nc.yude.jp/data/db:/var/lib/postgresql/data
     env_file:
       - db.env
 

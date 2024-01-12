@@ -17,9 +17,13 @@ services:
       UID_foo: 1000
       GROUPS_foo: family
 
-      SAMBA_VOLUME_CONFIG_store1: "[store1]; path=/mnt/store1; valid users = yude; guest ok = no; read only = no; browseable = yes; force group = family"
-      SAMBA_VOLUME_CONFIG_store3: "[store3]; path=/mnt/store3; valid users = yude; guest ok = no; read only = no; browseable = yes; force group = family"
+      SAMBA_VOLUME_CONFIG_store1: "[store1]; path=/mnt/store1; valid users = yude; guest ok = no; read only = no; browseable = yes; force group = family; force user = root"
+      SAMBA_VOLUME_CONFIG_store2: "[store2]; path=/mnt/store2; valid users = yude; guest ok = no; read only = no; browseable = yes; force group = family; force user = root"
+      SAMBA_VOLUME_CONFIG_store3: "[store3]; path=/mnt/store3; valid users = yude; guest ok = no; read only = no; browseable = yes; force group = family; force user = root"
+      SAMBA_VOLUME_CONFIG_prod: "[prod]; path=/mnt/prod; valid users = yude; guest ok = no; read only = no; browseable = yes; force group = family; force user = root"
     volumes:
       - /etc/avahi/services/:/external/avahi
       - /mnt/store1:/mnt/store1
+      - /mnt/store2:/mnt/store2
       - /mnt/store3:/mnt/store3
+      - /mnt/prod:/mnt/prod

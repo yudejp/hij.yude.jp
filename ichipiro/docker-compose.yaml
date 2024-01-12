@@ -37,6 +37,7 @@ services:
         condition: service_healthy
     volumes:
       - ./caddy/html:/usr/share/caddy
+      - /mnt/prod/intro:/usr/share/caddy/intro
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
 
   nichijid-rs:
