@@ -1,8 +1,8 @@
 services:
   mirakc:
-    # My custom build
+    # My custom build (This image does not exist on ghcr.io currently. Build it by yourself.)
     image: ghcr.io/yude/mirakc:main
-    # Official build
+    # Official build (Recommended)
     # image: docker.io/mirakc/mirakc:alpine
     container_name: mirakc
     init: true
